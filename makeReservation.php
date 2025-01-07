@@ -7,9 +7,10 @@ if (isset($_POST['submit'])){
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
         $newReservation =
             "INSERT INTO reservations(user_id, date, time)
- VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "')";
+            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "')";
         $insertReservation = mysqli_query($db, $newReservation);
         mysqli_close($db);
+        header('Location: ./bevestiging.php');
     }
     else{
         $errors['login']= "You need to login before making a reservation";
@@ -54,12 +55,10 @@ if (isset($_POST['submit'])){
 <form action="" method="post">
     <label for="date">Date:</label>
     <input type="date" id="date" name="date"><br>
-<label for="time">Time:</label>
-<input type="time" id="time" name="time" min="9:00" max="18:00" step="900">
-<span >You can only book a reservation between 9am and 6pm</span><br>
-<input type="submit" name="submit" value="Save">
-
-
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time" min="9:00" max="18:00" step="900">
+    <span >You can only book a reservation between 9am and 6pm</span><br>
+    <input type="submit" name="submit" value="Save">
 </form>
 </body>
 </html>
