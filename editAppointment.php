@@ -1,18 +1,31 @@
 <?php
 session_start();
+$id = '';
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-$getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
-$resultAccInfo = mysqli_query($db, $getAccInfo)
+$getReservationInfo = "SELECT * FROM `reservations` WHERE id = ' " . $id . " '";
+$resultReservationInfo = mysqli_query($db, $getReservationInfo)
 or die('Error ');
 
 $AccInfo = [];
 
 // Alle resultaten ophalen
-while($row = mysqli_fetch_assoc($resultAccInfo))
+while($row = mysqli_fetch_assoc($resultReservationInfo))
 {
-    $AccInfo[] = $row;
+    $reservationInfo[] = $row;
 }
+if (isset($_POST['submit'])) {
+    $changeReservation = "UPDATE `reservations` SET date = ' " . $_POST['date'] . " ' , time = ' " . $_POST['time'] . " ' WHERE id = '$id' ";
+    mysqli_query($db, $changeReservation) or die('Error ');
+
+    mysqli_close($db);
+    header('location: account.php');
+    exit;
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,8 +35,18 @@ while($row = mysqli_fetch_assoc($resultAccInfo))
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
 </head>
 <body>
+<form action="" method="post">
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" value="<?= $reservationInfo[0]["date"]?>"><br>
+    <label for="time">Time:</label>
+    <input type="time" id="time" name="time" min="9:00" max="18:00" step="900" value="<?= $reservationInfo[0]["time"]?>">
+    <span >You can only book a reservation between 9am and 6pm</span><br>
+    <input type="submit" name="submit" value="Save">
 
+
+</form>
 </body>
 </html>
