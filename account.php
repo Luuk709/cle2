@@ -5,21 +5,6 @@ require_once 'includes/dbconnect.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
-
-if ($resultAccInfo) {
-    $AccInfo = [];
-
-// Alle resultaten ophalen
-    while($row = mysqli_fetch_assoc($resultAccInfo))
-    {
-        $AccInfo[] = $row;
-    }
-    mysqli_close($db);
-    $i = 0;
-    $empty = false;
-} else {
-    $empty = true;
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -55,46 +40,45 @@ if ($resultAccInfo) {
         </div>
     </div>
 </nav>
-<?php if ($empty) :?>
-<h1 class="is-size-2">Account information</h1>
-<p>Name:<?= $AccInfo[0]['username'] ?></p>
-<p>Email: <?= $AccInfo[0]['email'] ?></p>
-<h1 class="is-size-2">Reservation information</h1>
-<table class="table is-striped is-fullwidth is-bordered">
-    <thead>
-    <tr class="has-text-weight-bold">
-        <th>
-            Date
-        </th>
-        <th>
-            Time
-        </th>
-        <th>
-            Change
-        </th>
-        <th>
-            Delete
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($AccInfo as $results) {?>
-        <tr>
-            <th class="has-text-weight-normal"> <?= htmlspecialchars($results['date']) ?></th>
-            <th class="has-text-weight-normal"> <?= htmlspecialchars($results['time']) ?></th>
+<?php if ($resultAccInfo) :?>
+    <h1 class="is-size-2">Account information</h1>
+    <p>Name:<?= $_SESSION['username'] ?></p>
+    <!--<p>Email: --><?php //= $AccInfo[0]['email'] ?><!--</p>-->
+    <h1 class="is-size-2">Reservation information</h1>
+    <table class="table is-striped is-fullwidth is-bordered">
+        <thead>
+        <tr class="has-text-weight-bold">
             <th>
-                <a class="has-text-weight-normal" href="editAppointment.php?id=<?=$AccInfo[$i]['id']?>">Change Reservation</a>
+                Date
             </th>
             <th>
-                <a class="has-text-weight-normal" href="deleteAppointment.php?id=<?=$AccInfo[$i]['id']?>">Delete Reservation</a>
+                Time
+            </th>
+            <th>
+                Change
+            </th>
+            <th>
+                Delete
             </th>
         </tr>
-    <?php $i++;
-    } ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <?php while ($results = mysqli_fetch_assoc($resultAccInfo)):?>
+            <tr>
+                <th class="has-text-weight-normal"> <?= htmlspecialchars($results['date']) ?></th>
+                <th class="has-text-weight-normal"> <?= htmlspecialchars($results['time']) ?></th>
+                <th>
+                    <a class="has-text-weight-normal" href="editAppointment.php?id=<?=$results['id']?>">Change Reservation</a>
+                </th>
+                <th>
+                    <a class="has-text-weight-normal" href="deleteAppointment.php?id=<?=$results['id']?>">Delete Reservation</a>
+                </th>
+            </tr>
+        <?php endwhile;?>
+        </tbody>
+    </table>
 <?php else:?>
-<div class="">Je hebt nog geen reserveringen</div>
+    <div class="">Je hebt nog geen reserveringen</div>
 <?php endif;?>
 </body>
 </html>
