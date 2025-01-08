@@ -1,0 +1,84 @@
+
+
+h1 title{
+    margin-top: 40px;
+    padding-top: 40px;
+}
+
+nav img{
+   width: fit-content;
+  height: auto;
+
+}
+
+nav a{
+    color: black;
+}
+
+nav a:hover{
+    color: white;
+    border-bottom: black 3px solid;
+}
+
+
+main{
+    padding-top: 0;
+}
+.foto-container img {
+    width: 300px;
+    height: 300px;
+    padding-top: 0;
+
+}
+
+.foto-container img:hover{
+
+}
+
+.foto-container p {
+    font-size: 20px;
+
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.btn:hover {opacity: 1}
+
+footer{
+    background-color: #C4C4C4;
+}
+
+
+footer a{
+    color: black;
+}
+
+footer a:hover{
+    color: white;
+
+}
+
+input[type=email]{
+    padding: 5px 245px 5px 15px ;
+}
+
+input[type=password]{
+    padding: 5px 245px 5px 15px ;
+}
+
+.container h1{
+
+}
+.container{
+    text-align: center;
+}
