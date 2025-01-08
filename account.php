@@ -6,15 +6,20 @@ $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.u
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
 
-$AccInfo = [];
+if ($resultAccInfo) {
+    $AccInfo = [];
 
 // Alle resultaten ophalen
-while($row = mysqli_fetch_assoc($resultAccInfo))
-{
-    $AccInfo[] = $row;
+    while($row = mysqli_fetch_assoc($resultAccInfo))
+    {
+        $AccInfo[] = $row;
+    }
+    mysqli_close($db);
+    $i = 0;
+    $empty = false;
+} else {
+    $empty = true;
 }
-mysqli_close($db);
-$i = 0;
 ?>
 <!doctype html>
 <html lang="en">
@@ -50,6 +55,7 @@ $i = 0;
         </div>
     </div>
 </nav>
+<?php if ($empty) :?>
 <h1 class="is-size-2">Account information</h1>
 <p>Name:<?= $AccInfo[0]['username'] ?></p>
 <p>Email: <?= $AccInfo[0]['email'] ?></p>
@@ -87,5 +93,8 @@ $i = 0;
     } ?>
     </tbody>
 </table>
+<?php else:?>
+<div class="">Je hebt nog geen reserveringen</div>
+<?php endif;?>
 </body>
 </html>
