@@ -7,7 +7,7 @@ if ($_SESSION['admin'] != 1){
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
 $getReservationDetails = "SELECT date, time, username, email FROM reservations
-INNER JOIN users ON reservations.user_id = users.id";
+INNER JOIN users ON reservations.user_id = users.id ORDER BY date";
 $resultReservations = mysqli_query($db, $getReservationDetails)
 or die('Error ');
 

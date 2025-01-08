@@ -14,6 +14,7 @@ while($row = mysqli_fetch_assoc($resultAccInfo))
     $AccInfo[] = $row;
 }
 mysqli_close($db);
+$i = 0;
 ?>
 <!doctype html>
 <html lang="en">
@@ -53,13 +54,38 @@ mysqli_close($db);
 <p>Name:<?= $AccInfo[0]['username'] ?></p>
 <p>Email: <?= $AccInfo[0]['email'] ?></p>
 <h1 class="is-size-2">Reservation information</h1>
-<p>Date: <?=$AccInfo[0]['date']?></p>
-<p>Time: <?=$AccInfo[0]['time']?></p>
-<form action="editAppointment.php">
-    <input type="submit" value="Change appointment">
-</form>
-<form action="">
-    <input type="submit" value="Cancel appointment">
-</form>
+<table class="table is-striped is-fullwidth is-bordered">
+    <thead>
+    <tr class="has-text-weight-bold">
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            Change
+        </th>
+        <th>
+            Delete
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($AccInfo as $results) {?>
+        <tr>
+            <th class="has-text-weight-normal"> <?= htmlspecialchars($results['date']) ?></th>
+            <th class="has-text-weight-normal"> <?= htmlspecialchars($results['time']) ?></th>
+            <th>
+                <a class="has-text-weight-normal" href="editAppointment.php?id=<?=$AccInfo[$i]['id']?>">Change Reservation</a>
+            </th>
+            <th>
+                <a class="has-text-weight-normal" href="deleteAppointment.php?id=<?=$AccInfo[$i]['id']?>">Delete Reservation</a>
+            </th>
+        </tr>
+    <?php $i++;
+    } ?>
+    </tbody>
+</table>
 </body>
 </html>
