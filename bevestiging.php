@@ -17,6 +17,8 @@ foreach ($result as $row) {
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -39,7 +41,7 @@ foreach ($result as $row) {
             </dl>
         </div>
         <div class="flex items-center space-x-4">
-            <a href="#" class="bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none ">Ga terug naar de hoofdpagina</a>
+            <a href="./index.php" class="bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none ">Ga terug naar de hoofdpagina</a>
         </div>
     </div>
 </section>

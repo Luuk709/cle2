@@ -64,31 +64,43 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="index.php">
+            <a class="navbar-item has-text-black" href="index.php">
                 Home
             </a>
 
-            <a class="navbar-item" href="createacc.php">
+            <a class="navbar-item has-text-black" href="createAccount.php">
                 Sign up
             </a>
         </div>
     </div>
 </nav>
 <body>
-<form action="" method="post">
+<div class="container has-text-centered section is-large">
+<h1 class="title">login</h1>
+<form action="" method="post" >
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
+    <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
     <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
     <label for="password">Password</label>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" placeholder="type ur password">
     <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
     <input type="submit" name="submit" value="Save">
-
-
 </form>
+</div>
+<footer class="footer" style="background-color: #C4C4C4" >
+    <div class="is-flex columns is-1 has-text-centered ">
+
+        <a class="column" href="#">Privacyverklaring</a>
+        <a class="column" href="#">Algemene voorwaarden</a>
+        <a class="column" href="#">Cookiebeleid</a>
+        <a class="column" href="#">Contact</a>
+    </div>
+</footer>
 </body>
+
 </html>
