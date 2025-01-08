@@ -3,19 +3,49 @@ session_start();
 
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-if (isset($_POST['submit'])){
+$getDateAndTimes = "SELECT date, time FROM reservations";
+$collectDatesAndTimes = mysqli_query($db, $getDateAndTimes);
+$dateAndTime = [];
+// Alle resultaten ophalen
+while ($row = mysqli_fetch_assoc($collectDatesAndTimes)) {
+    $dateAndTime[] = $row;
+}
+$getTimes = "SELECT time FROM appointment_times";
+$collectTimes = mysqli_query($db, $getTimes);
+$times = [];
+// Alle resultaten ophalen
+while ($row = mysqli_fetch_assoc($collectTimes)) {
+    $times[] = $row;
+}
+
+
+if (isset($_POST['submit'])) {
+    $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
-        $newReservation =
-            "INSERT INTO reservations(user_id, date, time)
+        //Check if date and time is in use
+        foreach ($dateAndTime as $dates) {
+            if ($dates['date'] == $_POST['date'] && date("H:i", strtotime($dates['time'])) == $_POST['time']) {
+                $checkDateAndTime[] = "check";
+
+
+            }
+        }
+        if (!$checkDateAndTime) {
+            $newReservation =
+                "INSERT INTO reservations(user_id, date, time)
             VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "')";
-        $insertReservation = mysqli_query($db, $newReservation);
-        mysqli_close($db);
-        header('Location: ./bevestiging.php');
-    }
-    else{
-        $errors['login']= "You need to login before making a reservation";
+            $insertReservation = mysqli_query($db, $newReservation);
+            mysqli_close($db);
+            header('Location: ./bevestiging.php');
+        }
+        else{
+            echo"That date is already booked";
+        }
+    }    else {
+        $errors['login'] = "You need to login before making a reservation";
     }
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,8 +86,15 @@ if (isset($_POST['submit'])){
     <label for="date">Date:</label>
     <input type="date" id="date" name="date"><br>
     <label for="time">Time:</label>
-    <input type="time" id="time" name="time" min="9:00" max="18:00" step="900">
-    <span >You can only book a reservation between 9am and 6pm</span><br>
+    <select id="time" name="time">
+        <option selected disabled>Choose a time</option>
+        <?php foreach ($times as $time): ?>
+            <option value="<?= date("H:i", strtotime($time['time'])) ?>">
+                <?= date("H:i", strtotime($time['time'])) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+    <span>You can only book a reservation between 9am and 6pm</span><br>
     <input type="submit" name="submit" value="Save">
 </form>
 </body>
