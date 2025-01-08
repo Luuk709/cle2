@@ -84,18 +84,35 @@ if (isset($_POST['submit'])) {
 <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
 <form action="" method="post">
     <label for="date">Date:</label>
-    <input type="date" id="date" name="date"><br>
-    <label for="time">Time:</label>
-    <select id="time" name="time">
-        <option selected disabled>Choose a time</option>
-        <?php foreach ($times as $time): ?>
-            <option value="<?= date("H:i", strtotime($time['time'])) ?>">
-                <?= date("H:i", strtotime($time['time'])) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-    <span>You can only book a reservation between 9am and 6pm</span><br>
+    <input type="date" id="datePicker" name="date"><br>
+    <div id="formContainer"></div>
     <input type="submit" name="submit" value="Save">
 </form>
+
+
+
+
+<script>
+    const datePicker = document.getElementById("datePicker");
+
+    datePicker.addEventListener("change", function () {
+        const selectedDate = datePicker.value;
+        loadXMLDoc(selectedDate);
+    });
+
+    function loadXMLDoc(selectedDate) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+
+                document.getElementById("formContainer").innerHTML = this.responseText;
+            }
+        };
+
+
+        xhttp.open("GET", `date-checking.php?q=${selectedDate}`, true);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>
