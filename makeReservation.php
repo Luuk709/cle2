@@ -18,7 +18,6 @@ while ($row = mysqli_fetch_assoc($collectTimes)) {
     $times[] = $row;
 }
 
-
 if (isset($_POST['submit'])) {
     $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
@@ -60,6 +59,11 @@ That date is already booked
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .errors::after{
+            content: "<?= $errors['login']?>";
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
@@ -90,32 +94,38 @@ That date is already booked
     </div>
 </nav>
 <main class="section is-medium">
-    <h1 class="title">make a reservation</h1>
+    <h1 class="title">Make a reservation</h1>
     <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
+    <div class="errors"></div>
     <form action="" method="post">
         <div class="is-flex">
-            <label class="date" for="date"><strong>Date:</strong></label>
-            <input type="date" id="date" name="date"><br>
+            <label for="datePicker"><strong>Date:</strong></label>
+            <input type="date" id="datePicker" name="date">
         </div>
-<div class="is-flex">
-    <label class="date" for="time"><strong>Time:</strong></label>
-    <select id="time" name="time">
-        <option selected disabled>Choose a time</option>
-        <?php foreach ($times as $time): ?>
-            <option value="<?= date("H:i", strtotime($time['time'])) ?>">
-                <?= date("H:i", strtotime($time['time'])) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</div>
-
-        <span class="subtext ">You can only book a reservation between 10am and 5pm</span><br>
+        <div class="is-flex" id="formContainer"></div>
         <input type="submit" name="submit" value="Save">
     </form>
-</main>
+    <script>
+        const datePicker = document.getElementById("datePicker");
+
+        datePicker.addEventListener("change", function () {
+            const selectedDate = datePicker.value;
+            loadXMLDoc(selectedDate);
+        });
+
+        function loadXMLDoc(selectedDate) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    document.getElementById("formContainer").innerHTML = this.responseText;
+                }
+            };
 
 
-
-
+            xhttp.open("GET", `date-checking.php?q=${selectedDate}`, true);
+            xhttp.send();
+        }
+    </script>
 </body>
 </html>

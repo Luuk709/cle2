@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
             foreach ($passwords as $password) {
                 $passwordCheck = $password['pass'];
             }
-            $sessionStart = "SELECT id, username, admin FROM `users` WHERE email = '$emailcheck'";
+            $sessionStart = "SELECT id, username, admin, email FROM `users` WHERE email = '$emailcheck'";
             $resultSession = mysqli_query($db, $sessionStart)
             or die('Error');
             $sessionThings = [];
@@ -43,6 +43,7 @@ if (isset($_POST['submit'])) {
                 session_start();
                 $_SESSION['id'] = $id['id'];
                 $_SESSION['username'] = $sessionThings[0]['username'];
+                $_SESSION['email'] = $sessionThings[0]['email'];
                 $_SESSION['admin'] = $sessionThings[0]['admin'];
                 header('location: makeReservation.php');
                 exit;
@@ -65,6 +66,15 @@ if (isset($_POST['submit'])) {
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .errorEmail::after{
+            content: "<?= $errors['email']?>";
+        }
+        .errorPw::after{
+            content: "<?= $errors['password']?>";
+        }
+
+    </style>
 </head>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -85,28 +95,21 @@ if (isset($_POST['submit'])) {
     </div>
 </nav>
 <body>
-<div class="container has-text-centered section is-large">
-<h1 class="title" aria-label="login">login</h1>
+<main class="container has-text-centered section is-large">
+    <h1 class="title" aria-label="login">login</h1>
     <div class="form">
-<form action="" method="post" >
-    <div class="email"> <label for="email">Email:</label>
-        <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
-        <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+        <form action="" method="post" >
+            <div class="email errorEmail">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
+            </div>
+            <div class="password errorPw">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="type ur password">
+            </div>
+            <input type="submit" name="submit" value="Save">
+        </form>
     </div>
-
-    <div class="password">
-        <label for="password">Password:</label>
-       <input type="password" id="password" name="password" placeholder="type ur password">
-       <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
-   </div>
-    <input type="submit" name="submit" value="Save">
-</form>
-    </div>
-
-
-
-</div>
-
+</main>
 </body>
-
 </html>

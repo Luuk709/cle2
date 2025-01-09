@@ -42,13 +42,35 @@ if (isset($_POST['submit'])) {
 <body>
 <form action="" method="post">
     <label for="date">Date:</label>
-    <input type="date" id="date" name="date" value="<?= $reservationInfo[0]["date"]?>"><br>
-    <label for="time">Time:</label>
-    <input type="time" id="time" name="time" min="9:00" max="18:00" step="900" value="<?= $reservationInfo[0]["time"]?>">
-    <span >You can only book a reservation between 9am and 6pm</span><br>
+    <input type="date" id="datePicker" name="date"><br>
+    <div class="formContainer"></div>
     <input type="submit" name="submit" value="Save">
-
-
 </form>
+
+
+
+
+<script>
+    const datePicker = document.getElementById("datePicker");
+
+    datePicker.addEventListener("change", function () {
+        const selectedDate = datePicker.value;
+        loadXMLDoc(selectedDate);
+    });
+
+    function loadXMLDoc(selectedDate) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+
+                document.getElementById("formContainer").innerHTML = this.responseText;
+            }
+        };
+
+
+        xhttp.open("GET", `date-checking.php?q=${selectedDate}`, true);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>

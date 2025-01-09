@@ -21,7 +21,6 @@ foreach ($result as $row) {
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-
 <body class="h-screen w-screen overflow-hidden flex justify-center items-center">
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">

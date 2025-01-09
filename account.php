@@ -5,19 +5,10 @@ if(!isset($_SESSION['id'])) {
 }
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
+require_once 'includes/needLogin.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
-
-$AccInfo = [];
-
-// Alle resultaten ophalen
-while($row = mysqli_fetch_assoc($resultAccInfo))
-{
-    $AccInfo[] = $row;
-}
-mysqli_close($db);
-$i = 0;
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,26 +21,6 @@ $i = 0;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
 </head>
-
-<?php
-
-
-
-if (!isset($_SESSION['id'])) {
-    echo ' <h1 class="title" style="text-align: center">must be logged in to delete </h1>';
-
-    echo '<button class="button is-fullwidth table ">
-            <a href="./login.php" class=" ">login</a>
-        </button>';
-    echo '<button class="is-fullwidth  ">
-            <a href="./index.php" class=" ">	go back</a>
-        </button>';
-
-//            header("Location: login.php");
-    exit;
-}
-?>
-
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -78,17 +49,11 @@ if (!isset($_SESSION['id'])) {
         </div>
     </div>
 </nav>
-
-<main>
-
-<div class="box-content">
+<?php if ($resultAccInfo) :?>
     <h1 class="is-size-2">Account information</h1>
-        <p> <strong>Name:</strong><?= $AccInfo[0]['username'] ?></p>
-        <p><strong>Email:</strong> <?= $AccInfo[0]['email'] ?></p>
-    </div>
-
-    <div class="section ">
-    <h2 class="is-size-2">Reservation information</h2>
+    <p>Name:<?= $_SESSION['username'] ?></p>
+    <!--<p>Email: --><?php //= $AccInfo[0]['email'] ?><!--</p>-->
+    <h1 class="is-size-2">Reservation information</h1>
     <table class="table is-striped is-fullwidth is-bordered">
         <thead>
         <tr class="has-text-weight-bold">
@@ -107,23 +72,22 @@ if (!isset($_SESSION['id'])) {
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($AccInfo as $results) {?>
+        <?php while ($results = mysqli_fetch_assoc($resultAccInfo)):?>
             <tr>
-                <th class="has-text-weight-normal "> <?= htmlspecialchars($results['date']) ?></th>
+                <th class="has-text-weight-normal"> <?= htmlspecialchars($results['date']) ?></th>
                 <th class="has-text-weight-normal"> <?= htmlspecialchars($results['time']) ?></th>
                 <th>
-                    <a class="has-text-weight-normal has-text-black" href="editAppointment.php?id=<?=$AccInfo[$i]['id']?>">Change Reservation</a>
+                    <a class="has-text-weight-normal has-text-black" href="editAppointment.php?id=<?=$results['id']?>">Change Reservation</a>
                 </th>
                 <th>
-                    <a class="has-text-weight-normal has-text-black" href="deleteAppointment.php?id=<?=$AccInfo[$i]['id']?>">Delete Reservation</a>
+                    <a class="has-text-weight-normal has-text-black" href="deleteAppointment.php?id=<?=$results['id']?>">Delete Reservation</a>
                 </th>
             </tr>
-            <?php $i++;
-        } ?>
+        <?php endwhile;?>
         </tbody>
     </table>
-    </div>
-</main>
-
+<?php else:?>
+    <div class="">Je hebt nog geen reserveringen</div>
+<?php endif;?>
 </body>
 </html>

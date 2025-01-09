@@ -41,64 +41,66 @@ if (isset($_POST['submit'])) {
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .emailError::after{
+            content: "<?= $errors['email']?>";
+        }
+        .passwordError::after{
+            content: "<?= $errors['password']?>";
+        }
+        .usernameError::after{
+             content: "<?= $errors['username']?>";
+         }
+
+    </style>
 </head>
 <body>
 
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
-<div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-        <a class="navbar-item" href="makeReservation.php">
-            Reserve
-        </a>
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="makeReservation.php">
+                Reserve
+            </a>
 
-        <a class="navbar-item" href="overview.php">
-            Overview
-        </a>
-        <a class="navbar-item" href="login.php">
-            Login
-        </a>
-        <a class="navbar-item" href="logout.php">
-            Logout
-        </a>
-        <a class="navbar-item" href="account.php">
-            My account
-        </a>
-    </div>
-    <div class="navbar-end" >
-        <a class="navbar-item" href="index.php">
-            <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
-        </a>
-    </div>
-</div>
-</nav>
-
-<main>
-    <div class="container has-text-centered section is-large">
-    <h1 class="title">Sign up</h1>
-        <div class="form">
-    <form action="" method="post">
-
-        <div class="email"><label for="email">Email:</label>
-            <input type="email" id="email" name="email">
-            <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+            <a class="navbar-item" href="overview.php">
+                Overview
+            </a>
+            <a class="navbar-item" href="login.php">
+                Login
+            </a>
+            <a class="navbar-item" href="logout.php">
+                Logout
+            </a>
+            <a class="navbar-item" href="account.php">
+                My account
+            </a>
         </div>
-
-<div class="username">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <span style="color : red;"><?= $errors['username'] ?? '' ?></span><br>
-</div>
-
-<div class="password">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
-</div>
-    </form>
-        <input type="submit" name="submit" value="Save">
-    </form>
+        <div class="navbar-end" >
+            <a class="navbar-item" href="index.php">
+                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+            </a>
+        </div>
     </div>
+</nav>
+<main>
+    <div class="container has-text-centered section is-large"></div>
+        <h1 class="title">Sign up</h1>
+        <form action="" method="post">
+            <div class="email emailError">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="username usernameError">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="password passwordError">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <input type="submit" name="submit" value="Save">
+        </form>
 </main>
-
 </body>
 </html>
