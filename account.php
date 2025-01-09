@@ -1,5 +1,4 @@
 <?php
-session_start();
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
 require_once 'includes/needLogin.php';
