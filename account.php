@@ -2,6 +2,7 @@
 session_start();
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
+require_once 'includes/needLogin.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
