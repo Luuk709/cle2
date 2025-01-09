@@ -41,19 +41,34 @@ if (isset($_POST['submit'])) {
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .emailError::after{
+            content: "<?= $errors['email']?>";
+        }
+        .passwordError::after{
+            content: "<?= $errors['password']?>";
+        }
+        .usernameError::after{
+             content: "<?= $errors['username']?>";
+         }
+
+    </style>
 </head>
 <body>
 <h1 class="title">Sign up</h1>
 <form action="" method="post">
+    <div class="emailError">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email">
-    <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+    </div>
+    <div class="usernameError">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username">
-    <span style="color : red;"><?= $errors['username'] ?? '' ?></span><br>
+    </div>
+    <div class="passwordError">
     <label for="password">Password:</label>
     <input type="password" id="password" name="password">
-    <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
+    </div>
     <input type="submit" name="submit" value="Save">
 
 

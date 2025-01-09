@@ -18,7 +18,6 @@ while ($row = mysqli_fetch_assoc($collectTimes)) {
     $times[] = $row;
 }
 
-
 if (isset($_POST['submit'])) {
     $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
@@ -57,6 +56,11 @@ if (isset($_POST['submit'])) {
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .errors::after{
+            content: "<?= $errors['login']?>";
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -82,7 +86,7 @@ if (isset($_POST['submit'])) {
     </div>
 </nav>
 <h1 class="title">Make a reservation</h1>
-<span style="color : red;"><?= $errors['login'] ?? '' ?></span>
+<div class="errors"></div>
 <form action="" method="post">
     <label for="date">Date:</label>
     <input type="date" id="datePicker" name="date"><br>

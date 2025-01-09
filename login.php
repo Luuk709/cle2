@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
             foreach ($passwords as $password) {
                 $passwordCheck = $password['pass'];
             }
-            $sessionStart = "SELECT id, username, admin FROM `users` WHERE email = '$emailcheck'";
+            $sessionStart = "SELECT id, username, admin, email FROM `users` WHERE email = '$emailcheck'";
             $resultSession = mysqli_query($db, $sessionStart)
             or die('Error');
             $sessionThings = [];
@@ -43,6 +43,7 @@ if (isset($_POST['submit'])) {
                 session_start();
                 $_SESSION['id'] = $id['id'];
                 $_SESSION['username'] = $sessionThings[0]['username'];
+                $_SESSION['email'] = $sessionThings[0]['email'];
                 $_SESSION['admin'] = $sessionThings[0]['admin'];
                 header('location: makeReservation.php');
                 exit;
@@ -65,6 +66,15 @@ if (isset($_POST['submit'])) {
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .errorEmail::after{
+            content: "<?= $errors['email']?>";
+        }
+        .errorPw::after{
+            content: "<?= $errors['password']?>";
+        }
+
+    </style>
 </head>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -85,10 +95,10 @@ if (isset($_POST['submit'])) {
 <form action="" method="post" >
     <label for="email">Email:</label>
     <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
-    <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+    <div class="errorEmail"></div><br>
     <label for="password">Password</label>
     <input type="password" id="password" name="password" placeholder="type ur password">
-    <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
+    <div class="errorPw"></div><br>
     <input type="submit" name="submit" value="Save">
 </form>
 </div>
