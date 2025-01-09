@@ -77,30 +77,36 @@ if (isset($_POST['submit'])) {
                 Sign up
             </a>
         </div>
+        <div class="navbar-end" >
+            <a class="navbar-item" href="index.php">
+                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+            </a>
+        </div>
     </div>
 </nav>
 <body>
 <div class="container has-text-centered section is-large">
-<h1 class="title">login</h1>
+<h1 class="title" aria-label="login">login</h1>
+    <div class="form">
 <form action="" method="post" >
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
-    <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" placeholder="type ur password">
-    <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
+    <div class="email"> <label for="email">Email:</label>
+        <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
+        <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+    </div>
+
+    <div class="password">
+        <label for="password">Password:</label>
+       <input type="password" id="password" name="password" placeholder="type ur password">
+       <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
+   </div>
     <input type="submit" name="submit" value="Save">
 </form>
-</div>
-<footer class="footer" style="background-color: #C4C4C4" >
-    <div class="is-flex columns is-1 has-text-centered ">
-
-        <a class="column" href="#">Privacyverklaring</a>
-        <a class="column" href="#">Algemene voorwaarden</a>
-        <a class="column" href="#">Cookiebeleid</a>
-        <a class="column" href="#">Contact</a>
     </div>
-</footer>
+
+
+
+</div>
+
 </body>
 
 </html>

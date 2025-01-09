@@ -55,7 +55,7 @@
             <strong>toner</strong> <strong>toner or root</strong>
         </div>
 
-            <button class="btn"> <a class="has-text-white"  href="#">bevestigen</a></button>
+            <button class="btn"> <a class="has-text-white"  href="./makeReservation.php">bevestigen</a></button>
             </section>
 
 

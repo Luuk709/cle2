@@ -43,20 +43,62 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1 class="title">Sign up</h1>
-<form action="" method="post">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
-    <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
+<div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+        <a class="navbar-item" href="makeReservation.php">
+            Reserve
+        </a>
+
+        <a class="navbar-item" href="overview.php">
+            Overview
+        </a>
+        <a class="navbar-item" href="login.php">
+            Login
+        </a>
+        <a class="navbar-item" href="logout.php">
+            Logout
+        </a>
+        <a class="navbar-item" href="account.php">
+            My account
+        </a>
+    </div>
+    <div class="navbar-end" >
+        <a class="navbar-item" href="index.php">
+            <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+        </a>
+    </div>
+</div>
+</nav>
+
+<main>
+    <div class="container has-text-centered section is-large">
+    <h1 class="title">Sign up</h1>
+        <div class="form">
+    <form action="" method="post">
+
+        <div class="email"><label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <span style="color : red;"><?= $errors['email'] ?? '' ?></span><br>
+        </div>
+
+<div class="username">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username">
     <span style="color : red;"><?= $errors['username'] ?? '' ?></span><br>
+</div>
+
+<div class="password">
     <label for="password">Password:</label>
     <input type="password" id="password" name="password">
     <span style="color : red;"><?= $errors['password'] ?? '' ?></span><br>
-    <input type="submit" name="submit" value="Save">
+</div>
+    </form>
+        <input type="submit" name="submit" value="Save">
+    </form>
+    </div>
+</main>
 
-
-</form>
 </body>
 </html>

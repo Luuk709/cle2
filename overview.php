@@ -33,7 +33,7 @@ mysqli_close($db);
 </head>
 
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="makeReservation.php">
@@ -48,6 +48,11 @@ mysqli_close($db);
             </a>
             <a class="navbar-item" href="logout.php">
                 Logout
+            </a>
+        </div>
+        <div class="navbar-end" >
+            <a class="navbar-item" href="index.php">
+                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>

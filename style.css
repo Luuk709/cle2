@@ -5,6 +5,8 @@ h1 title{
     padding-top: 40px;
 }
 
+
+
 nav img{
    width: fit-content;
   height: auto;
@@ -76,9 +78,96 @@ input[type=password]{
     padding: 5px 245px 5px 15px ;
 }
 
-.container h1{
+input[type=text]{
+    padding: 5px 245px 5px 15px ;
+}
+
+.bevestiging{
+    border: white solid 3px;
+    margin: 50px 50px 50px 10px;
+    box-sizing: border-box;
+    width: 25%;
+    font-size: 1.2rem;
+    box-shadow: 10px 10px 20px 10px rgb(0,0,0,0.2);
 
 }
-.container{
+
+.box-content{
+    padding: 20px 40px 40px 40px;
+    box-sizing: border-box;
+    border: white solid 3px;
+    box-shadow: 10px 10px 10px 10px rgb(0,0,0,0.1);
+    width: 30%;
+    margin: 50px 50px;
+}
+
+
+input[type=submit]{
+
+    background-color: black;
+    color: white;
+    padding: 10px 30px;
     text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    border-radius: 10px;
+
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+
+
+}
+.date{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+
+.email{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.password{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.username{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.subtext{
+   font-size: small;
+    color: crimson;
+}
+
+.form{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    width: 100%;
+    /*max-width: 400px;*/
+    /*padding: 20px;*/
+    /*gap: 20px;*/
+}
+
+
+form{
+    width: fit-content;
 }

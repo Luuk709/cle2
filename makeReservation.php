@@ -39,7 +39,10 @@ if (isset($_POST['submit'])) {
             header('Location: ./bevestiging.php');
         }
         else{
-            echo"That date is already booked";
+            echo " <div class='notification is-warning'>
+ <button class='delete'></button>
+That date is already booked 
+ </div>";
         }
     }    else {
         $errors['login'] = "You need to login before making a reservation";
@@ -59,7 +62,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="makeReservation.php">
@@ -79,14 +82,23 @@ if (isset($_POST['submit'])) {
                 My account
             </a>
         </div>
+        <div class="navbar-end" >
+            <a class="navbar-item" href="index.php">
+                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+            </a>
+        </div>
     </div>
 </nav>
-<h1 class="title">Make a reservation</h1>
-<span style="color : red;"><?= $errors['login'] ?? '' ?></span>
-<form action="" method="post">
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date"><br>
-    <label for="time">Time:</label>
+<main class="section is-medium">
+    <h1 class="title">make a reservation</h1>
+    <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
+    <form action="" method="post">
+        <div class="is-flex">
+            <label class="date" for="date"><strong>Date:</strong></label>
+            <input type="date" id="date" name="date"><br>
+        </div>
+<div class="is-flex">
+    <label class="date" for="time"><strong>Time:</strong></label>
     <select id="time" name="time">
         <option selected disabled>Choose a time</option>
         <?php foreach ($times as $time): ?>
@@ -95,8 +107,15 @@ if (isset($_POST['submit'])) {
             </option>
         <?php endforeach; ?>
     </select>
-    <span>You can only book a reservation between 9am and 6pm</span><br>
-    <input type="submit" name="submit" value="Save">
-</form>
+</div>
+
+        <span class="subtext ">You can only book a reservation between 10am and 5pm</span><br>
+        <input type="submit" name="submit" value="Save">
+    </form>
+</main>
+
+
+
+
 </body>
 </html>
