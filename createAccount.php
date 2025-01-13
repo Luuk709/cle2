@@ -84,8 +84,9 @@ if (isset($_POST['submit'])) {
     </div>
 </nav>
 <main>
-    <div class="container has-text-centered section is-large"></div>
+    <div class="container has-text-centered section is-medium">
         <h1 class="title">Sign up</h1>
+        <div class="form">
         <form action="" method="post">
             <div class="email emailError">
                 <label for="email">Email:</label>
@@ -101,6 +102,8 @@ if (isset($_POST['submit'])) {
             </div>
             <input type="submit" name="submit" value="Save">
         </form>
+    </div>
+    </div>
 </main>
 </body>
 </html>

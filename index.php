@@ -17,28 +17,35 @@
                     <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
                 </a>
             </div>
-            <div class="navbar-end" >
-                    <a class="column" href="./login.php" >login</a>
-                    <a class="column" href="#">about</a>
-                    <a class="column" href="./makeReservation.php">reserveren</a>
-                    <a class="column is-one-third" href="./account.php">my account</a>
+            
+            <div class="navbar-end">
+                <?php
+                session_start();
+                If(!isset($_SESSION['id'])): ?>
+                    <a class="column" href="./login.php" >Login</a>
+                <?php else:?>
+                <a class="column is-two-fifths" href="./account.php">My Account</a>
+
+                <?php endif;?>
+                <a class="column" href="#">About</a>
+                <a class="column" href="./makeReservation.php">Reserveren</a>
             </div>
         </div>
     </nav>
     <main>
         <section class=" mg-large section is-flex" style="justify-content: center">
             <div class="foto-container is-flex-direction-row is-3" style="padding: max(50px) justify-content: space-between" >
-                <div  class="is-flex image is-180x180 columns is-3" style="justify-content: space-between ">
-                    <img class="column" src="./fotos/hair1.jpeg" alt="hair 1"/>
-                    <img class="column" src="./fotos/hair2.jpeg" alt="hair 2" />
+                <div  class="is-flex image columns is-3" style="justify-content: space-between ">
+                    <img class="picture" src="./fotos/hair1.jpeg" alt="hair 1"/>
+                    <img class="picture" src="./fotos/hair2.jpeg" alt="hair 2" />
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
                     <strong>color</strong>
                     <strong>color and cut</strong>
                 </div>
-                <div class="is-flex image is-256x256 columns is-3" style="justify-content: space-between" >
-                    <img class="column" src="./fotos/hair3.jpeg" alt="hair 3"/>
-                    <img class="column" src="./fotos/hair4.jpeg" alt="hair 4"/>
+                <div class="is-flex image columns is-3" style="justify-content: space-between" >
+                    <img class="picture" src="./fotos/hair3.jpeg" alt="hair 3"/>
+                    <img class="picture" src="./fotos/hair4.jpeg" alt="hair 4"/>
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
                     <strong>toner</strong>
@@ -46,6 +53,32 @@
                 </div>
                 <button class="btn"> <a class="has-text-white"  href="./makeReservation.php">bevestigen</a></button>
             </div>
+            <script>
+                // Add click event listeners to the pictures
+                document.querySelectorAll('.picture').forEach(img => {
+                    img.addEventListener('click', () => {
+                        const pictureName = img.getAttribute('data-name');
+
+                        // Send the picture name to the server
+                        fetch('service.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ picture_name: pictureName })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    alert('Service saved successfully!');
+                                } else {
+                                    alert('Error');
+                                }
+                            })
+                            .catch(error => console.error('Error:', error));
+                    });
+                });
+            </script>
         </section>
     </main>
     <footer class="footer" style="background-color: #C4C4C4" >

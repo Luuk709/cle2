@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
 $errors = [];
@@ -95,7 +95,7 @@ if (isset($_POST['submit'])) {
     </div>
 </nav>
 <body>
-<main class="container has-text-centered section is-large">
+<main class="container has-text-centered section is-medium">
     <h1 class="title" aria-label="login">login</h1>
     <div class="form">
         <form action="" method="post" >
