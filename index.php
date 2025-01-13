@@ -19,16 +19,16 @@
                     <img class="picture" src="./fotos/hair2.jpeg" alt="hair 2" />
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
-                    <strong>color</strong>
-                    <strong>color and cut</strong>
+                    <strong>Color</strong>
+                    <strong>Color & Cut</strong>
                 </div>
                 <div class="is-flex image columns is-3" style="justify-content: space-between" >
                     <img class="picture" src="./fotos/hair3.jpeg" alt="hair 3"/>
                     <img class="picture" src="./fotos/hair4.jpeg" alt="hair 4"/>
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
-                    <strong>toner</strong>
-                    <strong>toner or root</strong>
+                    <strong>Toner</strong>
+                    <strong>Toner & Root</strong>
                 </div>
                 <button class="btn"> <a class="has-text-white"  href="./makeReservation.php">bevestigen</a></button>
             </div>

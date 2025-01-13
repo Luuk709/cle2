@@ -8,7 +8,10 @@ if ($_SESSION['admin'] != 1){
 require_once 'includes/dbconnect.php';
 $getReservationDetails = "SELECT date, time, username, email FROM reservations
 INNER JOIN users ON reservations.user_id = users.id ORDER BY date";
-$resultReservations = mysqli_query($db, $getReservationDetails)
+$resultReservations = mysqli_query($db, $getReservationDetails);
+
+$getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
+$resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
 
 $reservations = [];
@@ -37,7 +40,7 @@ mysqli_close($db);
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="makeReservation.php">
-                Reserve
+                Reservation
             </a>
 
             <a class="navbar-item" href="overview.php">
@@ -74,17 +77,24 @@ mysqli_close($db);
                 <th>
                     Time
                 </th>
+                <th>
+                    Delete Reservation
+                </th>
             </tr>
             </thead>
             <tbody>
+            <?php while ($results = mysqli_fetch_assoc($resultAccInfo)):?>
             <?php foreach ($reservations as $reservation) { ?>
                 <tr>
                     <th class="has-text-weight-normal"><?= htmlspecialchars($reservation['username']) ?></th>
                     <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['email']) ?></th>
                     <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['date']) ?></th>
                     <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['time']) ?></th>
+                    <th><a class="has-text-weight-normal has-text-black" href="adminDelete.php?id=<?=$results['id']?>">Delete Reservation</a> </th>
                 </tr>
+
             <?php } ?>
+            <?php endwhile;?>
             </tbody>
         </table>
     </section>
