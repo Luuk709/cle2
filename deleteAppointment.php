@@ -7,7 +7,6 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-
 if (isset($_POST['submit'])) {
     $deleteAlbum =
         "DELETE FROM reservations WHERE id = '$id'";
