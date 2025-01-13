@@ -5,7 +5,6 @@ if(!isset($_SESSION['id'])) {
 }
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-require_once 'includes/needLogin.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
@@ -25,15 +24,12 @@ or die('Error ');
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="makeReservation.php">
-                Reserve
+            <a class="navbar-item" href="./index.php">
+               Home
             </a>
 
             <a class="navbar-item" href="overview.php">
                 Overview
-            </a>
-            <a class="navbar-item" href="login.php">
-                Login
             </a>
             <a class="navbar-item" href="logout.php">
                 Logout
@@ -87,7 +83,7 @@ or die('Error ');
         </tbody>
     </table>
 <?php else:?>
-    <div class="">Je hebt nog geen reserveringen</div>
+<!--    <div class="">Je hebt nog geen reserveringen</div>-->
 <?php endif;?>
 </body>
 </html>
