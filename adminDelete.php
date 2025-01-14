@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
 
 //$users = mysqli_fetch_assoc($result);
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
-$returnValue = "SELECT * FROM `reservations` INNER JOIN users ON reservations.user_id = users.id WHERE reservations.id = 1;";
+$returnValue = "SELECT * FROM `reservations` INNER JOIN users ON reservations.user_id = users.id WHERE reservations.id = $id;";
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
 $result = mysqli_query($db, $returnValue);
 
@@ -27,9 +27,14 @@ foreach ($result as $row) {
 }
 
 if (isset($_POST['submit'])) {
-    $deleteAlbum =
-        "DELETE FROM reservations WHERE id = '$id'";
+    $deleteAlbum = "DELETE FROM reservations WHERE id = '$id'";
     $deleteAlbums = mysqli_query($db, $deleteAlbum);
+
+    if (!$deleteAlbums) {
+        die("Error deleting reservation: " . mysqli_error($db)); // Debug
+    } else {
+        echo "Reservation deleted successfully.";
+    }
 
     mysqli_close($db);
     header('location: ./overview.php');
@@ -38,7 +43,19 @@ if (isset($_POST['submit'])) {
 
 
 
-mysqli_close($db);
+//if (isset($_POST['submit'])) {
+//    $deleteAlbum =
+//        "DELETE FROM reservations WHERE id = '$id'";
+//    $deleteAlbums = mysqli_query($db, $deleteAlbum);
+//
+//    mysqli_close($db);
+//    header('location: ./overview.php');
+//    exit;
+//}
+//
+//
+//
+//mysqli_close($db);
 ?>
 
 <!doctype html>
@@ -107,7 +124,7 @@ mysqli_close($db);
         </div>
 
         <div class="section is-flex ">
-            <form action="./overview.php" method="post">
+            <form action="" method="post">
                 <input type="submit" name="submit" value="yes">
             </form>
             <form action="./overview.php">

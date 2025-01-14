@@ -84,16 +84,16 @@ mysqli_close($db);
             </thead>
             <tbody>
             <?php while ($results = mysqli_fetch_assoc($resultAccInfo)):?>
-            <?php foreach ($reservations as $reservation) { ?>
-                <tr>
-                    <th class="has-text-weight-normal"><?= htmlspecialchars($reservation['username']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['email']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['date']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['time']) ?></th>
-                    <th><a class="has-text-weight-normal has-text-black" href="adminDelete.php?id=<?=$reservation['user']?>">Delete Reservation</a> </th>
-                </tr>
+                <?php foreach ($reservations as $reservation) { ?>
+                    <tr>
+                        <th class="has-text-weight-normal"><?= htmlspecialchars($reservation['username']) ?></th>
+                        <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['email']) ?></th>
+                        <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['date']) ?></th>
+                        <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['time']) ?></th>
 
-            <?php } ?>
+                    </tr>
+
+                <?php } ?>
             <?php endwhile;?>
             </tbody>
         </table>
@@ -101,3 +101,4 @@ mysqli_close($db);
 </main>
 </body>
 </html>
+
