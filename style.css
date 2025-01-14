@@ -190,6 +190,7 @@ form{
     font-size: 1.2rem;
     box-shadow: 10px 10px 20px 10px rgb(0,0,0,0.2);
 }
+
 /* overview calender styling */
 .calendar {
     width: 350px;
@@ -237,7 +238,6 @@ form{
     color: lightgray;
 }
 .current-day{
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 50%;
+    background-color: #adadb1;
+    color: black;
 }
