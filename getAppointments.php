@@ -3,8 +3,8 @@
 $q = $_GET['q'];
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-$getAppointments = "SELECT email, reservations.time, name FROM reservations
-INNER JOIN users on reservations.user_id = users.id INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id WHERE date = '$q' ORDER BY reservations.time";
+$getAppointments = "SELECT email, reservations.time, name, reservations.id AS ide FROM reservations
+INNER JOIN users on reservations.user_id = users.id INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id WHERE date = '$q' ORDER BY reservations.    time";
 $collectAppointments = mysqli_query($db, $getAppointments);
 $appointments = [];
 // Alle resultaten ophalen
@@ -35,7 +35,8 @@ foreach ($appointments as $appointment) {
     echo " ";
     echo $appointment['time'];
     echo " ";
-    echo $appointment['name']?>
+    echo $appointment['name']; ?>
+        <a href="deleteAppointment.php?id=<?=$appointment['ide']?>">Delete</a>
 
 <br>
 <?php

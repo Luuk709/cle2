@@ -37,7 +37,12 @@ if ($_SESSION['admin'] != 1){
             <a class="navbar-item" href="overview.php">
                 Overview
             </a>
-
+            <a class="navbar-item" href="login.php">
+                Login
+            </a>
+            <a class="navbar-item" href="logout.php">
+                Logout
+            </a>
         </div>
         <div class="navbar-end" >
             <a class="navbar-item" href="index.php">
@@ -46,7 +51,8 @@ if ($_SESSION['admin'] != 1){
         </div>
     </div>
 </nav>
-<div class="overview">
+<section class="overviewSection">
+    <div>
 <div class="calendar">
     <div class="calendar-header">
         <button id="prev-month">‹</button>
@@ -72,7 +78,8 @@ if ($_SESSION['admin'] != 1){
 <div id="formContainer">
 
 </div>
-</div>
+    </div>
+</section>
 <script src="script.js"></script>
 </body>
 </html>
