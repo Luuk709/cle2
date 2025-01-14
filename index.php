@@ -15,16 +15,16 @@
         <section class=" mg-large section is-flex" style="justify-content: center">
             <div class="foto-container is-flex-direction-row is-3" style="padding: max(50px) justify-content: space-between" >
                 <div  class="is-flex image columns is-3" style="justify-content: space-between ">
-                    <img class="picture" src="./fotos/hair1.jpeg" alt="hair 1"/>
-                    <img class="picture" src="./fotos/hair2.jpeg" alt="hair 2" />
+                    <a href="makeReservation.php?id=1"><img class="picture" src="./fotos/hair1.jpeg" alt="hair 1"/></a>
+                    <a href="makeReservation.php?id=2"><img class="picture" src="./fotos/hair2.jpeg" alt="hair 2" /></a>
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
                     <strong>color</strong>
                     <strong>color and cut</strong>
                 </div>
                 <div class="is-flex image columns is-3" style="justify-content: space-between" >
-                    <img class="picture" src="./fotos/hair3.jpeg" alt="hair 3"/>
-                    <img class="picture" src="./fotos/hair4.jpeg" alt="hair 4"/>
+                    <a href="makeReservation.php?id=3"><img class="picture" src="./fotos/hair3.jpeg" alt="hair 3"/></a>
+                    <a href="makeReservation.php?id=4"><img class="picture" src="./fotos/hair4.jpeg" alt="hair 4"/></a>
                 </div>
                 <div  class="is-flex  columns is-3" style="justify-content: space-around ">
                     <strong>toner</strong>
@@ -34,29 +34,29 @@
             </div>
             <script>
                 // Add click event listeners to the pictures
-                document.querySelectorAll('.picture').forEach(img => {
-                    img.addEventListener('click', () => {
-                        const pictureName = img.getAttribute('data-name');
-
-                        // Send the picture name to the server
-                        fetch('service.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ picture_name: pictureName })
-                        })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    alert('Service saved successfully!');
-                                } else {
-                                    alert('Error');
-                                }
-                            })
-                            .catch(error => console.error('Error:', error));
-                    });
-                });
+                // document.querySelectorAll('.picture').forEach(img => {
+                //     img.addEventListener('click', () => {
+                //         const pictureName = img.getAttribute('data-name');
+                //
+                //         // Send the picture name to the server
+                //         fetch('service.php', {
+                //             method: 'POST',
+                //             headers: {
+                //                 'Content-Type': 'application/json'
+                //             },
+                //             body: JSON.stringify({ picture_name: pictureName })
+                //         })
+                //             .then(response => response.json())
+                //             .then(data => {
+                //                 if (data.success) {
+                //                     alert('Service saved successfully!');
+                //                 } else {
+                //                     alert('Error');
+                //                 }
+                //             })
+                //             .catch(error => console.error('Error:', error));
+                //     });
+                // });
             </script>
         </section>
     </main>

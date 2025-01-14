@@ -3,8 +3,8 @@
 $q = $_GET['q'];
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-$getAppointments = "SELECT email, time FROM reservations
-INNER JOIN users on reservations.user_id = users.id WHERE date = '$q' ORDER BY time";
+$getAppointments = "SELECT email, reservations.time, name FROM reservations
+INNER JOIN users on reservations.user_id = users.id INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id WHERE date = '$q' ORDER BY reservations.time";
 $collectAppointments = mysqli_query($db, $getAppointments);
 $appointments = [];
 // Alle resultaten ophalen
@@ -33,7 +33,10 @@ if ($appointments){
 foreach ($appointments as $appointment) {
     echo $appointment['email'];
     echo " ";
-    echo $appointment['time'];?>
+    echo $appointment['time'];
+    echo " ";
+    echo $appointment['name']?>
+
 <br>
 <?php
 }
