@@ -27,6 +27,9 @@ if ($_SESSION['admin'] != 1){
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
+            <a class="navbar-item" href="index.php">
+                Home
+            </a>
             <a class="navbar-item" href="makeReservation.php">
                 Reserve
             </a>
@@ -34,12 +37,7 @@ if ($_SESSION['admin'] != 1){
             <a class="navbar-item" href="overview.php">
                 Overview
             </a>
-            <a class="navbar-item" href="login.php">
-                Login
-            </a>
-            <a class="navbar-item" href="logout.php">
-                Logout
-            </a>
+
         </div>
         <div class="navbar-end" >
             <a class="navbar-item" href="index.php">
@@ -48,6 +46,7 @@ if ($_SESSION['admin'] != 1){
         </div>
     </div>
 </nav>
+<div class="overview">
 <div class="calendar">
     <div class="calendar-header">
         <button id="prev-month">‹</button>
@@ -69,10 +68,11 @@ if ($_SESSION['admin'] != 1){
         </div>
     </div>
 </div>
+
 <div id="formContainer">
 
 </div>
-
+</div>
 <script src="script.js"></script>
 </body>
 </html>

@@ -30,7 +30,7 @@
                     <strong>Toner</strong>
                     <strong>Toner & Root</strong>
                 </div>
-                <button class="btn"> <a class="has-text-white"  href="./makeReservation.php">bevestigen</a></button>
+
             </div>
             <script>
                 // Add click event listeners to the pictures
@@ -62,9 +62,9 @@
     </main>
     <footer class="footer" style="background-color: #C4C4C4" >
         <div class="is-flex columns is-1 has-text-centered ">
-        <a class="column" href="#">Privacyverklaring</a>
-        <a class="column" href="#">Algemene voorwaarden</a>
-        <a class="column" href="#">Cookiebeleid</a>
+        <a class="column" href="#">Privacy</a>
+        <a class="column" href="#">Terms & Conditions</a>
+        <a class="column" href="#">Cookie</a>
         <a class="column" href="#">Contact</a>
         </div>
     </footer>

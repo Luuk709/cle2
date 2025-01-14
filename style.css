@@ -241,3 +241,19 @@ form{
     background-color: #adadb1;
     color: black;
 }
+
+.formContainer{
+    border: white solid 3px;
+    margin: 50px 150px 150px 50px;
+
+    box-sizing: border-box;
+    box-shadow: 10px 10px 20px 10px rgb(0,0,0,0.2);
+}
+
+.overview{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+
+}

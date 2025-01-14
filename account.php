@@ -34,9 +34,7 @@ or die('Error ');
             <a class="navbar-item" href="logout.php">
                 Logout
             </a>
-            <a class="navbar-item" href="account.php">
-                My account
-            </a>
+
         </div>
         <div class="navbar-end" >
             <a class="navbar-item" href="index.php">
