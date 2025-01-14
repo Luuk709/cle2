@@ -241,3 +241,10 @@ form{
     background-color: #adadb1;
     color: black;
 }
+
+.overviewSection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

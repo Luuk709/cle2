@@ -48,6 +48,8 @@ if ($_SESSION['admin'] != 1){
         </div>
     </div>
 </nav>
+<section class="overviewSection">
+    <div>
 <div class="calendar">
     <div class="calendar-header">
         <button id="prev-month">‹</button>
@@ -72,7 +74,8 @@ if ($_SESSION['admin'] != 1){
 <div id="formContainer">
 
 </div>
-
+    </div>
+</section>
 <script src="script.js"></script>
 </body>
 </html>
