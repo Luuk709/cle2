@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
 
 //$users = mysqli_fetch_assoc($result);
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
-$returnValue = "SELECT * FROM `reservations` INNER JOIN users ON reservations.user_id = users.id WHERE reservations.id = $id;";
+$returnValue = "SELECT username, reservations.time as time, date, name FROM `reservations` INNER JOIN users ON reservations.user_id = users.id INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id WHERE reservations.id = $id;";
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
 $result = mysqli_query($db, $returnValue);
 
@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                <!--                <dd class="font-medium text-gray-900  sm:text-end">--><?php //= $conformation[0]['knipBeurt'] ?><!--</dd>-->
+                                <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['name'] ?></dd>
             </dl>
         </div>
 
