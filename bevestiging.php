@@ -3,7 +3,7 @@ session_start();
 require_once 'includes/dbconnect.php';
 /** @var mysqli $db */
 
-$returnValue = "SELECT * FROM reservations ORDER BY ID DESC LIMIT 1;";
+$returnValue = "SELECT reservations.id, date, reservations.time, name FROM reservations INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id ORDER BY reservations.ID DESC LIMIT 1;";
 $result = mysqli_query($db, $returnValue);
 
 foreach ($result as $row) {
@@ -65,7 +65,7 @@ foreach ($result as $row) {
                 </dl>
                 <dl class="sm:flex items-center justify-between gap-4">
                     <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                    <!--                <dd class="font-medium text-gray-900  sm:text-end">--><?php //= $conformation[0]['knipBeurt'] ?><!--</dd>-->
+                                    <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['name'] ?></dd>
                 </dl>
             </div>
 
