@@ -30,10 +30,12 @@ require_once 'includes/dbconnect.php';
                 }
 
                 ?>
-
+                <a class="column" href="#">
+                    About
+                </a>
                 <?php
                 if (isset($_SESSION['id'])) {
-                    echo '<a class="column is-full" href="./account.php">My Account</a>';
+                    echo '<a class="column is-three-quarters" href="./account.php">My Account</a>';
                 }
                 ?>
 

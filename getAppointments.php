@@ -36,7 +36,7 @@ foreach ($appointments as $appointment) {
     echo $appointment['time'];
     echo " ";
     echo $appointment['name']; ?>
-        <a href="deleteAppointment.php?id=<?=$appointment['ide']?>">Delete</a>
+       <button class="button "> <a href="adminDelete.php?id=<?=$appointment['ide']?>">Delete</a> </button>
 
 <br>
 <?php

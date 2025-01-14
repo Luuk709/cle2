@@ -101,7 +101,7 @@ if (isset($_POST['submit'])) {
 
         <p>Are you sure you want to delete this appointment?</p>
 
-
+<div class="appointment">
         <div>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">User</dt>
@@ -118,11 +118,11 @@ if (isset($_POST['submit'])) {
                 <dd class="font-medium text-gray-900  sm:text-end"><strong><?= $conformation[0]['time'] ?></strong></dd>
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
-                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                <!--                <dd class="font-medium text-gray-900  sm:text-end">--><?php //= $conformation[0]['knipBeurt'] ?><!--</dd>-->
+                <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">service</dt>
+                                <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['name'] ?></dd>
             </dl>
         </div>
-
+        </div>
         <div class="section is-flex ">
             <form action="" method="post">
                 <input type="submit" name="submit" value="yes">

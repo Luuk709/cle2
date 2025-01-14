@@ -66,6 +66,7 @@
         <a class="column" href="#">Terms & Conditions</a>
         <a class="column" href="#">Cookie</a>
         <a class="column" href="#">Contact</a>
+           <p>© CutOrDye </p>
         </div>
     </footer>
 </body>
