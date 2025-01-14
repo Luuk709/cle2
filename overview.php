@@ -5,23 +5,8 @@ if ($_SESSION['admin'] != 1){
     exit();
 }
 /** @var mysqli $db */
-require_once 'includes/dbconnect.php';
-$getReservationDetails = "SELECT date, time, username, email, reservations.id AS user FROM reservations
-INNER JOIN users ON reservations.user_id = users.id ORDER BY date";
-$resultReservations = mysqli_query($db, $getReservationDetails);
 
-$getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
-$resultAccInfo = mysqli_query($db, $getAccInfo)
-or die('Error ');
 
-$reservations = [];
-
-// Alle resultaten ophalen
-while($row = mysqli_fetch_assoc($resultReservations))
-{
-    $reservations[] = $row;
-}
-mysqli_close($db);
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,6 +18,9 @@ mysqli_close($db);
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
 </head>
 
 <body>
@@ -40,7 +28,7 @@ mysqli_close($db);
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
             <a class="navbar-item" href="makeReservation.php">
-                Reservation
+                Reserve
             </a>
 
             <a class="navbar-item" href="overview.php">
@@ -60,44 +48,31 @@ mysqli_close($db);
         </div>
     </div>
 </nav>
-<main>
-    <section class="section container">
-        <table class="table is-striped is-fullwidth is-bordered">
-            <thead>
-            <tr class="has-text-weight-bold">
-                <th>
-                    Username
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                    Time
-                </th>
-                <th>
-                    Delete Reservation
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php while ($results = mysqli_fetch_assoc($resultAccInfo)):?>
-            <?php foreach ($reservations as $reservation) { ?>
-                <tr>
-                    <th class="has-text-weight-normal"><?= htmlspecialchars($reservation['username']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['email']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['date']) ?></th>
-                    <th class="has-text-weight-normal"> <?= htmlspecialchars($reservation['time']) ?></th>
-                    <th><a class="has-text-weight-normal has-text-black" href="adminDelete.php?id=<?=$reservation['user']?>">Delete Reservation</a> </th>
-                </tr>
+<div class="calendar">
+    <div class="calendar-header">
+        <button id="prev-month">‹</button>
+        <div id="month-year"></div>
+        <button id="next-month">›</button>
+    </div>
+    <div class="calendar-body">
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+        <div class="calendar-dates">
 
-            <?php } ?>
-            <?php endwhile;?>
-            </tbody>
-        </table>
-    </section>
-</main>
+        </div>
+    </div>
+</div>
+<div id="formContainer">
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
