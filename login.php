@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['username'] = $sessionThings[0]['username'];
                 $_SESSION['email'] = $sessionThings[0]['email'];
                 $_SESSION['admin'] = $sessionThings[0]['admin'];
-                header('location: makeReservation.php');
+                header('location: index.php');
                 exit;
             } else {
                 echo "Ongeldige emailadres of wachtwoord";

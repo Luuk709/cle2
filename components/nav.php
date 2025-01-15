@@ -26,7 +26,10 @@ require_once 'includes/dbconnect.php';
             <div class="navbar-end" >
                 <?php
                 if (!isset($_SESSION['id'])) {
-                  echo '<a class="column" href="./login.php" >Login</a>' ;
+                  echo '<a class="column" href="./login.php" >Login</a>';
+                    echo '<a class="column is-two-fifths" href="createAccount.php">
+                        Sign up
+                    </a>'  ;
                 }
 
                 ?>

@@ -75,15 +75,8 @@ That date is already booked
             <a class="navbar-item" href="./index.php">
                 Home
             </a>
-
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
-            <a class="navbar-item" href="login.php">
-                Login
-            </a>
-            <a class="navbar-item" href="logout.php">
-                Logout
+            <a class="navbar-item" href="#">
+                About
             </a>
             <a class="navbar-item" href="account.php">
                 My account

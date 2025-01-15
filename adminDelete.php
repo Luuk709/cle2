@@ -17,7 +17,10 @@ if (isset($_GET['id'])) {
 
 //$users = mysqli_fetch_assoc($result);
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
-$returnValue = "SELECT username, reservations.time as time, date, name FROM `reservations` INNER JOIN users ON reservations.user_id = users.id INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id WHERE reservations.id = $id;";
+$returnValue = "SELECT username, reservations.time as time, date, name FROM 
+`reservations` INNER JOIN users ON reservations.user_id = users.id 
+INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id 
+WHERE reservations.id = $id;";
 //$returnValue = "SELECT * FROM users ORDER BY ID DESC LIMIT 1;";
 $result = mysqli_query($db, $returnValue);
 

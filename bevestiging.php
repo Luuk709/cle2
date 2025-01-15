@@ -29,9 +29,6 @@ foreach ($result as $row) {
                 Home
             </a>
 
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
 
             <a class="navbar-item" href="account.php">
                 My account
