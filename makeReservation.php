@@ -20,7 +20,13 @@ $times = [];
 while ($row = mysqli_fetch_assoc($collectTimes)) {
     $times[] = $row;
 }
-
+$getType = "SELECT name FROM appointment_types where id = '$type_id'";
+$collectTypes = mysqli_query($db, $getType);
+$types = [];
+// Alle resultaten ophalen
+while ($row = mysqli_fetch_assoc($collectTypes)) {
+    $types[] = $row;
+}
 if (isset($_POST['submit'])) {
     $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
@@ -100,6 +106,7 @@ That date is already booked
     <h1 class="title">Make a reservation</h1>
     <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
     <div class="errors"></div>
+    <p>Your appointment type: <?= $types[0]['name']?></p>
     <form action="" method="post">
         <div class="is-flex">
             <label for="datePicker"><strong>Date:</strong></label>
