@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+$type_id = '';
+if (isset($_GET['id'])) {
+    $type_id = $_GET['id'];
+}
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
 $getDateAndTimes = "SELECT date, time FROM reservations";
@@ -31,8 +34,8 @@ if (isset($_POST['submit'])) {
         }
         if (!$checkDateAndTime) {
             $newReservation =
-                "INSERT INTO reservations(user_id, date, time)
-            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "')";
+                "INSERT INTO reservations(user_id, date, time, appointment_type)
+            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "','". $_POST['type']."')";
             $insertReservation = mysqli_query($db, $newReservation);
             mysqli_close($db);
             header('Location: ./bevestiging.php');
@@ -72,15 +75,8 @@ That date is already booked
             <a class="navbar-item" href="./index.php">
                 Home
             </a>
-
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
-            <a class="navbar-item" href="login.php">
-                Login
-            </a>
-            <a class="navbar-item" href="logout.php">
-                Logout
+            <a class="navbar-item" href="#">
+                About
             </a>
             <a class="navbar-item" href="account.php">
                 My account
@@ -103,6 +99,7 @@ That date is already booked
             <input type="date" id="datePicker" name="date">
         </div>
         <div class="is-flex" id="formContainer"></div>
+        <input type="hidden" id="type" name="type" value="<?=$type_id?>">
         <input type="submit" name="submit" value="Save">
     </form>
     <script>
