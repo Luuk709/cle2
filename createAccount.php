@@ -10,10 +10,15 @@ if (isset($_POST['submit'])) {
     if (empty(trim($_POST['password']))) {
         $errors['password'] = 'Password is required.';
     }
+    elseif(strlen(trim($_POST['password'])) < 8){
+        $errors['password'] = 'Password must be more than 8 characters.';
+    }
     if (empty(trim($_POST['username']))) {
         $errors['username'] = 'Username is required.';
     }
+
     if (empty($errors)) {
+
         $pw = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $username = mysqli_real_escape_string($db, $_POST['username']);
         $email = mysqli_real_escape_string($db, $_POST['email']);

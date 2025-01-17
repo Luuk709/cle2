@@ -59,7 +59,7 @@ if ($_SESSION['admin'] != 1){
         <div id="month-year"></div>
         <button id="next-month">›</button>
     </div>
-    <div class="calendar-body">
+    <div id = "testing" class="calendar-body">
         <div class="calendar-weekdays">
             <div>Sun</div>
             <div>Mon</div>

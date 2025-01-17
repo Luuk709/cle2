@@ -52,15 +52,15 @@ foreach ($result as $row) {
             <div class="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6   mb-6 md:mb-8">
                 <dl class="sm:flex items-center justify-between gap-4">
                     <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Datum</dt>
-                    <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['date'] ?></dd>
+                    <dd class="font-medium text-gray-900  sm:text-end"><?= htmlspecialchars($conformation[0]['date']) ?></dd>
                 </dl>
                 <dl class="sm:flex items-center justify-between gap-4">
                     <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Tijd</dt>
-                    <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['time'] ?></dd>
+                    <dd class="font-medium text-gray-900  sm:text-end"><?= htmlspecialchars($conformation[0]['time']) ?></dd>
                 </dl>
                 <dl class="sm:flex items-center justify-between gap-4">
                     <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                                    <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['name'] ?></dd>
+                                    <dd class="font-medium text-gray-900  sm:text-end"><?= htmlspecialchars($conformation[0]['name']) ?></dd>
                 </dl>
             </div>
 

@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 }
 
 
-$returnValue = "SELECT * FROM reservations ORDER BY ID DESC LIMIT 1;";
+$returnValue = "SELECT date, name, reservations.time AS resTime FROM reservations INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id ORDER BY reservations.ID DESC LIMIT 1;";
 $result = mysqli_query($db, $returnValue);
 
 foreach ($result as $row) {
@@ -70,15 +70,15 @@ if (isset($_POST['submit'])) {
         <div>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Datum</dt>
-                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= $conformation[0]['date'] ?></strong></dd>
+                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= htmlspecialchars($conformation[0]['date']) ?></strong></dd>
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Tijd</dt>
-                <dd class="font-medium text-gray-900  sm:text-end"><strong><?= $conformation[0]['time'] ?></strong></dd>
+                <dd class="font-medium text-gray-900  sm:text-end"><strong><?= htmlspecialchars($conformation[0]['resTime']) ?></strong></dd>
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                <!--                <dd class="font-medium text-gray-900  sm:text-end">--><?php //= $conformation[0]['knipBeurt'] ?><!--</dd>-->
+                                <dd class="font-medium text-gray-900  sm:text-end"><?= htmlspecialchars($conformation[0]['name']) ?></dd>
             </dl>
         </div>
 

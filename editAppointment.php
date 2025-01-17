@@ -11,7 +11,7 @@ $getReservationInfo = "SELECT * FROM `reservations` WHERE id = ' " . $id . " '";
 $resultReservationInfo = mysqli_query($db, $getReservationInfo)
 or die('Error ');
 
-$AccInfo = [];
+$reservationInfo = [];
 
 // Alle resultaten ophalen
 while($row = mysqli_fetch_assoc($resultReservationInfo))
@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
 
 <form action="" method="post">
     <label for="datePicker">Date:</label>
-    <input type="date" id="datePicker" name="date"><br>
+    <input type="date" id="datePicker" name="date" value="<?=$reservationInfo[0]['date'] ?>"><br>
     <div class="formContainer"></div>
     <input type="submit" name="submit" value="Save">
 </form>

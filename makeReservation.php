@@ -106,7 +106,7 @@ That date is already booked
     <h1 class="title">Make a reservation</h1>
     <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
     <div class="errors"></div>
-    <p>Your appointment type: <?= $types[0]['name']?></p>
+    <p>Your appointment type: <?= htmlspecialchars($types[0]['name'])?></p>
     <form action="" method="post">
         <div class="is-flex">
             <label for="datePicker"><strong>Date:</strong></label>
