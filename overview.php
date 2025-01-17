@@ -30,16 +30,10 @@ if ($_SESSION['admin'] != 1){
             <a class="navbar-item" href="index.php">
                 Home
             </a>
-            <a class="navbar-item" href="makeReservation.php">
-                Reserve
+            <a class="navbar-item" href="overviewClient.php">
+                Clients
             </a>
 
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
-            <a class="navbar-item" href="login.php">
-                Login
-            </a>
             <a class="navbar-item" href="logout.php">
                 Logout
             </a>

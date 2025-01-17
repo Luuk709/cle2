@@ -3,6 +3,8 @@ session_start();
 if(!isset($_SESSION['id'])) {
     header('location: ./login.php');
 }
+
+
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
@@ -27,10 +29,21 @@ or die('Error ');
             <a class="navbar-item" href="./index.php">
                Home
             </a>
+            <?php
 
-            <a class="navbar-item" href="overview.php">
+            if ($_SESSION['admin'] != 1){
+
+} elseif  (isset($_SESSION['admin'])) {
+                    echo '<a class="navbar-item" href="overview.php">
                 Overview
-            </a>
+            </a>';
+                    echo '  <a class="navbar-item" href="overviewClient.php">
+                Clients
+            </a>';
+                }
+
+
+?>
             <a class="navbar-item" href="logout.php">
                 Logout
             </a>

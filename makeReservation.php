@@ -34,25 +34,22 @@ if (isset($_POST['submit'])) {
         foreach ($dateAndTime as $dates) {
             if ($dates['date'] == $_POST['date'] && date("H:i", strtotime($dates['time'])) == $_POST['time']) {
                 $checkDateAndTime[] = "check";
-
-
             }
         }
         if (!$checkDateAndTime) {
             $newReservation =
                 "INSERT INTO reservations(user_id, date, time, appointment_type)
-            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "','". $_POST['type']."')";
+            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "','" . $_POST['type'] . "')";
             $insertReservation = mysqli_query($db, $newReservation);
             mysqli_close($db);
             header('Location: ./bevestiging.php');
-        }
-        else{
+        } else {
             echo " <div class='notification is-warning'>
  <button class='delete'></button>
 That date is already booked 
  </div>";
         }
-    }    else {
+    } else {
         $errors['login'] = "You need to login before making a reservation";
     }
 }
@@ -69,7 +66,7 @@ That date is already booked
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        .errors::after{
+        .errors::after {
             content: "<?= $errors['login']?>";
         }
     </style>
@@ -81,23 +78,16 @@ That date is already booked
             <a class="navbar-item" href="./index.php">
                 Home
             </a>
-
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
-            <a class="navbar-item" href="login.php">
-                Login
-            </a>
-            <a class="navbar-item" href="logout.php">
-                Logout
+            <a class="navbar-item" href="#">
+                About
             </a>
             <a class="navbar-item" href="account.php">
                 My account
             </a>
         </div>
-        <div class="navbar-end" >
+        <div class="navbar-end">
             <a class="navbar-item" href="index.php">
-                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+                <img src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>
@@ -113,7 +103,7 @@ That date is already booked
             <input type="date" id="datePicker" name="date">
         </div>
         <div class="is-flex" id="formContainer"></div>
-        <input type="hidden" id="type" name="type" value="<?=$type_id?>">
+        <input type="hidden" id="type" name="type" value="<?= $type_id ?>">
         <input type="submit" name="submit" value="Save">
     </form>
     <script>
@@ -132,8 +122,6 @@ That date is already booked
                     document.getElementById("formContainer").innerHTML = this.responseText;
                 }
             };
-
-
             xhttp.open("GET", `date-checking.php?q=${selectedDate}`, true);
             xhttp.send();
         }

@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['username'] = $sessionThings[0]['username'];
                 $_SESSION['email'] = $sessionThings[0]['email'];
                 $_SESSION['admin'] = $sessionThings[0]['admin'];
-                header('location: makeReservation.php');
+                header('location: index.php');
                 exit;
             } else {
                 echo "Ongeldige emailadres of wachtwoord";
@@ -67,10 +67,11 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        .errorEmail::after{
+        .errorEmail::after {
             content: "<?= $errors['email']?>";
         }
-        .errorPw::after{
+
+        .errorPw::after {
             content: "<?= $errors['password']?>";
         }
 
@@ -87,9 +88,9 @@ if (isset($_POST['submit'])) {
                 Sign up
             </a>
         </div>
-        <div class="navbar-end" >
+        <div class="navbar-end">
             <a class="navbar-item" href="index.php">
-                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+                <img src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>
@@ -98,10 +99,10 @@ if (isset($_POST['submit'])) {
 <main class="container has-text-centered section is-medium">
     <h1 class="title" aria-label="login">login</h1>
     <div class="form">
-        <form action="" method="post" >
+        <form action="" method="post" class="" id="form">
             <div class="email errorEmail">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
+                <input type="email" id="email" name="email" placeholder="yourEmail@example.com">
             </div>
             <div class="password errorPw">
                 <label for="password">Password</label>
@@ -109,7 +110,38 @@ if (isset($_POST['submit'])) {
             </div>
             <input type="submit" name="submit" value="Save">
         </form>
+        <form action="magicLink.php" method="post" class="is-hidden" id="magic-link-form">
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" name="email-magic-link" type="email" placeholder="Email">
+                    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+                    <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+                </p>
+            </div>
+            <input type="submit" name="submit" value="Send magic link">
+        </form>
+        <div class="magic-link" onclick="switchForm(this)">Login with magic link</div>
     </div>
 </main>
+<script>
+    function switchForm(element) {
+        const form = document.getElementById('form');
+        const magicLinkForm = document.getElementById('magic-link-form');
+
+        if (form.classList.contains('is-hidden')) {
+            form.classList.remove('is-hidden');
+            magicLinkForm.classList.add('is-hidden');
+        } else {
+            form.classList.add('is-hidden');
+            magicLinkForm.classList.remove('is-hidden');
+        }
+
+        element.innerHTML === 'Login with magic link' ? element.innerHTML = 'Login with email' : element.innerHTML = 'Login with magic link';
+    }
+</script>
 </body>
 </html>

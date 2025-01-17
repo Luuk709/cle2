@@ -64,19 +64,15 @@ if (isset($_POST['submit'])) {
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="makeReservation.php">
-                Reserve
-            </a>
 
-            <a class="navbar-item" href="overview.php">
-                Overview
+
+            <a class="navbar-item" href="index.php">
+                Home
             </a>
             <a class="navbar-item" href="login.php">
                 Login
             </a>
-            <a class="navbar-item" href="logout.php">
-                Logout
-            </a>
+
             <a class="navbar-item" href="account.php">
                 My account
             </a>

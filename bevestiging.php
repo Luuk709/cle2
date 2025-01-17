@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'includes/dbconnect.php';
+require_once 'src/sendMail.php';
 /** @var mysqli $db */
 
 $returnValue = "SELECT reservations.id, date, reservations.time, name FROM reservations INNER JOIN appointment_types on reservations.appointment_type = appointment_types.id ORDER BY reservations.ID DESC LIMIT 1;";
@@ -9,6 +10,16 @@ $result = mysqli_query($db, $returnValue);
 foreach ($result as $row) {
     $conformation[] = $row;
 }
+
+$info = new stdClass();
+$to = $_SESSION['email'];
+$subject = "Conformation of your reservation";
+$info->date = $conformation[0]['date'];
+$info->time = $conformation[0]['time'];
+//$info->knipBeurt = $conformation[0]['knipBeurt'];
+$type = 'confirmation';
+sendMail($to, $subject, $type, $info);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,22 +40,20 @@ foreach ($result as $row) {
                 Home
             </a>
 
-            <a class="navbar-item" href="overview.php">
-                Overview
-            </a>
 
             <a class="navbar-item" href="account.php">
                 My account
             </a>
         </div>
-        <div class="navbar-end" >
+        <div class="navbar-end">
             <a class="navbar-item" href="index.php">
-                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+                <img src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>
 </nav>
-<main> <section class="bg-white py-8 antialiased  md:py-16">
+<main>
+    <section class="bg-white py-8 antialiased  md:py-16">
         <div class="mx-auto max-w-2xl px-4 2xl:px-0">
 
             <h2 class="title mt-4">bedankt voor het inplannen van een afspraak.</h2>
@@ -64,9 +73,11 @@ foreach ($result as $row) {
                 </dl>
             </div>
 
-        </div>
+            </div>
             <div class="flex items-center space-x-4">
-                <a href="./index.php" class="bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none ">Ga terug naar de hoofdpagina</a>
+                <a href="./index.php"
+                   class="bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none ">Ga
+                    terug naar de hoofdpagina</a>
             </div>
     </section>
 
