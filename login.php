@@ -48,14 +48,25 @@ if (isset($_POST['submit'])) {
                 header('location: index.php');
                 exit;
             } else {
-                echo "Ongeldige emailadres of wachtwoord";
+                echo "
+
+
+";
+//                echo "<div class='alert'>
+//<span class='closebtn' onclick='this.parentElement.style.display'='none';>&times;</span>
+//
+//<p>Ongeldige emailadres of wachtwoord </p>
+//
+//</div>";
+
             }
         }
     }
 }
 ?>
 
-
+<!--<input id='modal-toggle' type='checkbox'>-->
+<!--<label class='modal-btn' for='modal-toggle'>Click me</label>-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -73,9 +84,9 @@ if (isset($_POST['submit'])) {
         .errorPw::after{
             content: "<?= $errors['password']?>";
         }
-
     </style>
 </head>
+<body>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
@@ -83,9 +94,7 @@ if (isset($_POST['submit'])) {
                 Home
             </a>
 
-            <a class="navbar-item has-text-black" href="createAccount.php">
-                Sign up
-            </a>
+
         </div>
         <div class="navbar-end" >
             <a class="navbar-item" href="index.php">
@@ -94,8 +103,8 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </nav>
-<body>
 <main class="container has-text-centered section is-medium">
+
     <h1 class="title" aria-label="login">login</h1>
     <div class="form">
         <form action="" method="post" >
@@ -110,6 +119,7 @@ if (isset($_POST['submit'])) {
             <input type="submit" name="submit" value="Save">
         </form>
     </div>
+    <p> Don't have an account yet? <a href="createAccount.php">Make a new account</a> </p>
 </main>
 </body>
 </html>

@@ -100,7 +100,7 @@ That date is already booked
         </div>
         <div class="is-flex" id="formContainer"></div>
         <input type="hidden" id="type" name="type" value="<?=$type_id?>">
-        <input type="submit" name="submit" value="Save">
+        <input type="submit" name="submit" value="Next">
     </form>
     <script>
         const datePicker = document.getElementById("datePicker");

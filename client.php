@@ -6,18 +6,14 @@ if ($_SESSION['admin'] != 1){
 }
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
-//$id = $_GET['id'];
-$query = "SELECT * FROM users ";
+$id = $_GET['id'];
+$query = "SELECT * FROM users  WHERE id = $id ";
 
 $result = mysqli_query($db, $query)
 or die('Error ' . mysqli_error($db) . ' with query ' . $query);
 
-$users = [];
-while($row = mysqli_fetch_assoc($result))
-{
-    $users[] = $row;
-}
-mysqli_close($db);
+$users = mysqli_fetch_assoc($result);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,7 +31,7 @@ mysqli_close($db);
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="index.php">
+            <a class="navbar-item" href="./index.php">
                 Home
             </a>
             <?php
@@ -46,11 +42,13 @@ mysqli_close($db);
                 echo '<a class="navbar-item" href="overview.php">
                 Overview
             </a>';
-
+//                echo '  <a class="navbar-item" href="overviewClient.php">
+//                Clients
+//            </a>';
             }
 
-            ?>
 
+            ?>
 
         </div>
         <div class="navbar-end" >
@@ -60,34 +58,11 @@ mysqli_close($db);
         </div>
     </div>
 </nav>
+
 <main>
     <section class="section container">
-        <table class="table is-striped is-fullwidth is-bordered">
-            <thead>
-            <tr class="has-text-weight-bold">
-                <th>
-                    Username
-                </th>
-                <th>
-                    Email
-                </th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            foreach ($users as $user) { ?>
-                    <tr>
-<!--                        <td>--><?php //= ($key + 1) ?><!--</td>-->
-                       <th class="has-text-weight-normal"> <a href="client.php?id=<?= htmlspecialchars($user['id']) ?>" class="client"><?= htmlspecialchars($user['username']) ?> </a></th>
-                        <th class="has-text-weight-normal"> <?= htmlspecialchars($user['email']) ?></th>
-
-                    </tr>
-
-                <?php } ?>
-
-            </tbody>
-        </table>
+       <p>  username: <?= $users['username'] ?></p>
+        <p> email: <?= $users['email'] ?></p>
     </section>
 </main>
 </body>
