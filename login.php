@@ -17,8 +17,9 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($db, $checkpw)
         or die('Error');
         if (mysqli_num_rows($result) === 0) {
-            echo "Onbekend e-mailadres.";
+            echo "<script>window.onload = function() { show(); }</script>";
         } else {
+
             $passwords = [];
             while ($row = mysqli_fetch_assoc($result)) {
                 $passwords[] = $row;
@@ -48,7 +49,7 @@ if (isset($_POST['submit'])) {
                 header('location: index.php');
                 exit;
             } else {
-                echo "Ongeldige emailadres of wachtwoord";
+                echo "<script>window.onload = function() { show(); }</script>";
             }
         }
     }
@@ -57,7 +58,7 @@ if (isset($_POST['submit'])) {
 
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -76,6 +77,17 @@ if (isset($_POST['submit'])) {
         }
 
     </style>
+    <script>
+        function show(){
+            var stats =  document.getElementById("aa").style.display;
+
+            if (stats == "none"){
+                document.getElementById("aa").style.display = "inline-block";
+            } else {
+                document.getElementById("aa").style.display = "none";
+            }
+        }
+    </script>
 </head>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
@@ -126,6 +138,9 @@ if (isset($_POST['submit'])) {
         </form>
         <div class="magic-link" onclick="switchForm(this)">Login with magic link</div>
     </div>
+    <div id="aa" style="display: none">
+        incorrect email or password
+    </div>
 </main>
 <script>
     function switchForm(element) {
@@ -141,7 +156,10 @@ if (isset($_POST['submit'])) {
         }
 
         element.innerHTML === 'Login with magic link' ? element.innerHTML = 'Login with email' : element.innerHTML = 'Login with magic link';
+
     }
+
+
 </script>
 </body>
 </html>

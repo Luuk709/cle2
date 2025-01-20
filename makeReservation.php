@@ -28,6 +28,9 @@ while ($row = mysqli_fetch_assoc($collectTypes)) {
     $types[] = $row;
 }
 if (isset($_POST['submit'])) {
+    $dateToday = new DateTime();
+    $datePost = new DateTime($_POST['date']);
+    if ($dateToday < $datePost){
     $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
         //Check if date and time is in use
@@ -52,11 +55,14 @@ That date is already booked
     } else {
         $errors['login'] = "You need to login before making a reservation";
     }
+} else{
+        $errors['login'] = "You can only make a reservation for days after today";
+    }
 }
 
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"

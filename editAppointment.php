@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 ?>
 <!doctype html>
 
-<html   lang="en">
+<html   lang="en" data-theme="light">
 <head >
     <meta charset="UTF-8">
     <meta name="viewport"

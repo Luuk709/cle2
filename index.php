@@ -1,4 +1,4 @@
-<html lang="en" data-theme="white">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +10,7 @@
     <title>CutOrDye</title>
 </head>
 <body>
-   <?php include './components/nav.php'?>
+   <?php include './components/nav.php';?>
     <main>
         <section class=" mg-large section is-flex" style="justify-content: center">
             <div class="foto-container is-flex-direction-row is-3" style="padding: max(50px) justify-content: space-between" >

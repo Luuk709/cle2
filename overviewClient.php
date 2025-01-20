@@ -24,7 +24,7 @@ while($row = mysqli_fetch_assoc($resultReservations))
 mysqli_close($db);
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"

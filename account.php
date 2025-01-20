@@ -10,9 +10,16 @@ require_once 'includes/dbconnect.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo)
 or die('Error ');
+//$accInfo = [];
+//
+//// Alle resultaten ophalen
+//while($row = mysqli_fetch_assoc($resultAccInfo))
+//{
+//    $accInfo[] = $row;
+//}
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -60,6 +67,11 @@ or die('Error ');
     <h1 class="is-size-2">Account information</h1>
     <p>Name:<?= $_SESSION['username'] ?></p>
     <!--<p>Email: --><?php //= $AccInfo[0]['email'] ?><!--</p>-->
+<div id="aa" style="display: none">
+        <p>Are you sure you want to delete this?</p>
+    <button class="button" onclick="" id="deleteButton">Confirm</button>
+    <button onclick="show()" class="button">Cancel</button>
+    </div>
     <h1 class="is-size-2">Reservation information</h1>
     <table class="table is-striped is-fullwidth is-bordered">
         <thead>
@@ -87,7 +99,7 @@ or die('Error ');
                     <a class="has-text-weight-normal has-text-black" href="editAppointment.php?id=<?=$results['id']?>">Change Reservation</a>
                 </th>
                 <th>
-                    <a class="has-text-weight-normal has-text-black" href="deleteAppointment.php?id=<?=$results['id']?>">Delete Reservation</a>
+                    <a onclick="show('<?= htmlspecialchars($results['id']) ?>')" class="has-text-weight-normal has-text-black">Delete Reservation</a>
                 </th>
             </tr>
         <?php endwhile;?>
@@ -96,5 +108,34 @@ or die('Error ');
 <?php else:?>
 <!--    <div class="">Je hebt nog geen reserveringen</div>-->
 <?php endif;?>
+<script defer>
+    function deleteAppointment(id) {
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                        location.reload();
+                }
+            };
+
+            xhttp.open("GET", `deleteAppointment.php?q=${id}`, true);
+            xhttp.send();
+
+    }
+
+    function show(id){
+        var stats =  document.getElementById("aa").style.display;
+        let deleteButton = document.getElementById('deleteButton');
+        deleteButton.onclick = function () {deleteAppointment(id)}
+        // console.log(id)
+
+        if (stats == "none"){
+            document.getElementById("aa").style.display = "inline-block";
+        } else {
+            document.getElementById("aa").style.display = "none";
+        }
+    }
+
+</script>
 </body>
 </html>
