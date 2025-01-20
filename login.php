@@ -17,8 +17,9 @@ if (isset($_POST['submit'])) {
         $result = mysqli_query($db, $checkpw)
         or die('Error');
         if (mysqli_num_rows($result) === 0) {
-            echo "Onbekend e-mailadres.";
+            echo "<script>window.onload = function() { show(); }</script>";
         } else {
+
             $passwords = [];
             while ($row = mysqli_fetch_assoc($result)) {
                 $passwords[] = $row;
@@ -48,17 +49,7 @@ if (isset($_POST['submit'])) {
                 header('location: index.php');
                 exit;
             } else {
-                echo "
-
-
-";
-//                echo "<div class='alert'>
-//<span class='closebtn' onclick='this.parentElement.style.display'='none';>&times;</span>
-//
-//<p>Ongeldige emailadres of wachtwoord </p>
-//
-//</div>";
-
+                echo "<script>window.onload = function() { show(); }</script>";
             }
         }
     }
@@ -68,7 +59,7 @@ if (isset($_POST['submit'])) {
 <!--<input id='modal-toggle' type='checkbox'>-->
 <!--<label class='modal-btn' for='modal-toggle'>Click me</label>-->
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -78,13 +69,25 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        .errorEmail::after{
+        .errorEmail::after {
             content: "<?= $errors['email']?>";
         }
-        .errorPw::after{
+
+        .errorPw::after {
             content: "<?= $errors['password']?>";
         }
     </style>
+    <script>
+        function show(){
+            var stats =  document.getElementById("aa").style.display;
+
+            if (stats == "none"){
+                document.getElementById("aa").style.display = "inline-block";
+            } else {
+                document.getElementById("aa").style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
@@ -96,9 +99,9 @@ if (isset($_POST['submit'])) {
 
 
         </div>
-        <div class="navbar-end" >
+        <div class="navbar-end">
             <a class="navbar-item" href="index.php">
-                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+                <img src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>
@@ -107,10 +110,10 @@ if (isset($_POST['submit'])) {
 
     <h1 class="title" aria-label="login">login</h1>
     <div class="form">
-        <form action="" method="post" >
+        <form action="" method="post" class="" id="form">
             <div class="email errorEmail">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email"  placeholder="yourEmail@example.com">
+                <input type="email" id="email" name="email" placeholder="yourEmail@example.com">
             </div>
             <div class="password errorPw">
                 <label for="password">Password</label>
@@ -118,8 +121,45 @@ if (isset($_POST['submit'])) {
             </div>
             <input type="submit" name="submit" value="Save">
         </form>
+        <form action="magicLink.php" method="post" class="is-hidden" id="magic-link-form">
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" name="email-magic-link" type="email" placeholder="Email">
+                    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+                    <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+                </p>
+            </div>
+            <input type="submit" name="submit" value="Send magic link">
+        </form>
+        <div class="magic-link" onclick="switchForm(this)">Login with magic link</div>
+    </div>
+    <div id="aa" style="display: none">
+        incorrect email or password
     </div>
     <p> Don't have an account yet? <a href="createAccount.php">Make a new account</a> </p>
 </main>
+<script>
+    function switchForm(element) {
+        const form = document.getElementById('form');
+        const magicLinkForm = document.getElementById('magic-link-form');
+
+        if (form.classList.contains('is-hidden')) {
+            form.classList.remove('is-hidden');
+            magicLinkForm.classList.add('is-hidden');
+        } else {
+            form.classList.add('is-hidden');
+            magicLinkForm.classList.remove('is-hidden');
+        }
+
+        element.innerHTML === 'Login with magic link' ? element.innerHTML = 'Login with email' : element.innerHTML = 'Login with magic link';
+
+    }
+
+
+</script>
 </body>
 </html>

@@ -31,11 +31,11 @@ echo $q;
 <?php
 if ($appointments){
 foreach ($appointments as $appointment) {
-    echo $appointment['email'];
+    echo htmlspecialchars($appointment['email']);
     echo " ";
-    echo $appointment['time'];
+    echo htmlspecialchars($appointment['time']);
     echo " ";
-    echo $appointment['name']; ?>
+    echo htmlspecialchars($appointment['name']); ?>
         <a href="adminDelete.php?id=<?=$appointment['ide']?>">Delete</a>
 
 <br>

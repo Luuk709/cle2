@@ -262,3 +262,24 @@ color: black;
     align-items: center;
     height: 100vh;
 }
+
+/*Custom pop up*/
+
+#aa {
+    background-color: white;
+    width: 40%;
+    display: flex;
+    position:fixed;
+    left:0;
+    right:0;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    padding: 15px;
+    text-align: center;
+    box-sizing: content-box;
+}
+
+
+

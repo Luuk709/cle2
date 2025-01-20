@@ -108,21 +108,21 @@ if (isset($_POST['submit'])) {
         <div>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">User</dt>
-                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= $user['username'] ?></strong></dd>
+                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= htmlspecialchars($user['username']) ?></strong></dd>
             </dl>
 
 
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Datum</dt>
-                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= $conformation[0]['date'] ?></strong></dd>
+                <dd class="font-medium text-gray-900  sm:text-end"> <strong><?= htmlspecialchars($conformation[0]['date']) ?></strong></dd>
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Tijd</dt>
-                <dd class="font-medium text-gray-900  sm:text-end"><strong><?= $conformation[0]['time'] ?></strong></dd>
+                <dd class="font-medium text-gray-900  sm:text-end"><strong><?= htmlspecialchars($conformation[0]['time']) ?></strong></dd>
             </dl>
             <dl class="sm:flex items-center justify-between gap-4">
                 <dt class="font-normal mb-1 sm:mb-0 text-gray-500 ">Knipbeurt</dt>
-                                <dd class="font-medium text-gray-900  sm:text-end"><?= $conformation[0]['name'] ?></dd>
+                                <dd class="font-medium text-gray-900  sm:text-end"><?= htmlspecialchars($conformation[0]['name']) ?></dd>
             </dl>
         </div>
 

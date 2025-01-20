@@ -1,4 +1,4 @@
-<html lang="en" data-theme="white">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +10,7 @@
     <title>CutOrDye</title>
 </head>
 <body>
-   <?php include './components/nav.php'?>
+   <?php include './components/nav.php';?>
     <main>
         <h1 class="title has-text-centered">choose a service</h1>
         <section class=" mg-large section is-flex" style="justify-content: center">

@@ -74,7 +74,7 @@ mysqli_close($db);
 
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -180,7 +180,7 @@ mysqli_close($db);
                     <a class="has-text-weight-normal has-text-black" href="editAppointment.php?id=<?=$results['id']?>">Change Reservation</a>
                 </th>
                 <th>
-                    <a class="has-text-weight-normal has-text-black" href="deleteAppointment.php?id=<?=$results['id']?>">Delete Reservation</a>
+                    <a onclick="show('<?= htmlspecialchars($results['id']) ?>')" class="has-text-weight-normal has-text-black">Delete Reservation</a>
                 </th>
             </tr>
         <?php endwhile;?>
@@ -189,5 +189,34 @@ mysqli_close($db);
 <?php else:?>
 <!--    <div class="">Je hebt nog geen reserveringen</div>-->
 <?php endif;?>
+<script defer>
+    function deleteAppointment(id) {
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                        location.reload();
+                }
+            };
+
+            xhttp.open("GET", `deleteAppointment.php?q=${id}`, true);
+            xhttp.send();
+
+    }
+
+    function show(id){
+        var stats =  document.getElementById("aa").style.display;
+        let deleteButton = document.getElementById('deleteButton');
+        deleteButton.onclick = function () {deleteAppointment(id)}
+        // console.log(id)
+
+        if (stats == "none"){
+            document.getElementById("aa").style.display = "inline-block";
+        } else {
+            document.getElementById("aa").style.display = "none";
+        }
+    }
+
+</script>
 </body>
 </html>

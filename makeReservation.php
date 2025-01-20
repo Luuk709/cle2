@@ -20,40 +20,49 @@ $times = [];
 while ($row = mysqli_fetch_assoc($collectTimes)) {
     $times[] = $row;
 }
-
+$getType = "SELECT name FROM appointment_types where id = '$type_id'";
+$collectTypes = mysqli_query($db, $getType);
+$types = [];
+// Alle resultaten ophalen
+while ($row = mysqli_fetch_assoc($collectTypes)) {
+    $types[] = $row;
+}
 if (isset($_POST['submit'])) {
+    $dateToday = new DateTime();
+    $datePost = new DateTime($_POST['date']);
+    if ($dateToday < $datePost){
     $checkDateAndTime = [];
     if (isset($_SESSION['id']) && $_SESSION['id'] !== '') {
         //Check if date and time is in use
         foreach ($dateAndTime as $dates) {
             if ($dates['date'] == $_POST['date'] && date("H:i", strtotime($dates['time'])) == $_POST['time']) {
                 $checkDateAndTime[] = "check";
-
-
             }
         }
         if (!$checkDateAndTime) {
             $newReservation =
                 "INSERT INTO reservations(user_id, date, time, appointment_type)
-            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "','". $_POST['type']."')";
+            VALUES (' " . $_SESSION['id'] . " ' , '" . $_POST['date'] . "', '" . $_POST['time'] . "','" . $_POST['type'] . "')";
             $insertReservation = mysqli_query($db, $newReservation);
             mysqli_close($db);
             header('Location: ./bevestiging.php');
-        }
-        else{
+        } else {
             echo " <div class='notification is-warning'>
  <button class='delete'></button>
 That date is already booked 
  </div>";
         }
-    }    else {
+    } else {
         $errors['login'] = "You need to login before making a reservation";
+    }
+} else{
+        $errors['login'] = "You can only make a reservation for days after today";
     }
 }
 
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -63,7 +72,7 @@ That date is already booked
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
     <link rel="stylesheet" href="./style.css">
     <style>
-        .errors::after{
+        .errors::after {
             content: "<?= $errors['login']?>";
         }
     </style>
@@ -82,9 +91,9 @@ That date is already booked
                 My account
             </a>
         </div>
-        <div class="navbar-end" >
+        <div class="navbar-end">
             <a class="navbar-item" href="index.php">
-                <img  src="./fotos/logo_CutOrDye.png" alt="logo"/>
+                <img src="./fotos/logo_CutOrDye.png" alt="logo"/>
             </a>
         </div>
     </div>
@@ -93,14 +102,15 @@ That date is already booked
     <h1 class="title">Make a reservation</h1>
     <span style="color : red;"><?= $errors['login'] ?? '' ?></span>
     <div class="errors"></div>
+    <p>Your appointment type: <?= htmlspecialchars($types[0]['name'])?></p>
     <form action="" method="post">
         <div class="is-flex">
             <label for="datePicker"><strong>Date:</strong></label>
             <input type="date" id="datePicker" name="date">
         </div>
         <div class="is-flex" id="formContainer"></div>
-        <input type="hidden" id="type" name="type" value="<?=$type_id?>">
-        <input type="submit" name="submit" value="Next">
+        <input type="hidden" id="type" name="type" value="<?= $type_id ?>">
+        <input type="submit" name="submit" value="Save">
     </form>
     <script>
         const datePicker = document.getElementById("datePicker");
@@ -118,8 +128,6 @@ That date is already booked
                     document.getElementById("formContainer").innerHTML = this.responseText;
                 }
             };
-
-
             xhttp.open("GET", `date-checking.php?q=${selectedDate}`, true);
             xhttp.send();
         }
