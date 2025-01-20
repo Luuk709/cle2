@@ -56,7 +56,8 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-
+<!--<input id='modal-toggle' type='checkbox'>-->
+<!--<label class='modal-btn' for='modal-toggle'>Click me</label>-->
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
@@ -75,7 +76,6 @@ if (isset($_POST['submit'])) {
         .errorPw::after {
             content: "<?= $errors['password']?>";
         }
-
     </style>
     <script>
         function show(){
@@ -89,6 +89,7 @@ if (isset($_POST['submit'])) {
         }
     </script>
 </head>
+<body>
 <nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: #C4C4C4">
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
@@ -96,9 +97,7 @@ if (isset($_POST['submit'])) {
                 Home
             </a>
 
-            <a class="navbar-item has-text-black" href="createAccount.php">
-                Sign up
-            </a>
+
         </div>
         <div class="navbar-end">
             <a class="navbar-item" href="index.php">
@@ -107,8 +106,8 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </nav>
-<body>
 <main class="container has-text-centered section is-medium">
+
     <h1 class="title" aria-label="login">login</h1>
     <div class="form">
         <form action="" method="post" class="" id="form">
@@ -141,6 +140,7 @@ if (isset($_POST['submit'])) {
     <div id="aa" style="display: none">
         incorrect email or password
     </div>
+    <p> Don't have an account yet? <a href="createAccount.php">Make a new account</a> </p>
 </main>
 <script>
     function switchForm(element) {

@@ -12,7 +12,9 @@
 <body>
    <?php include './components/nav.php';?>
     <main>
+        <h1 class="title has-text-centered">choose a service</h1>
         <section class=" mg-large section is-flex" style="justify-content: center">
+
             <div class="foto-container is-flex-direction-row is-3" style="padding: max(50px) justify-content: space-between" >
                 <div  class="is-flex image columns is-3" style="justify-content: space-between ">
                     <a href="makeReservation.php?id=1"><img class="picture" src="./fotos/hair1.jpeg" alt="hair 1"/></a>

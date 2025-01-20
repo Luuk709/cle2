@@ -195,6 +195,16 @@ form{
     display: flex;
 }
 
+.client{
+color: black;
+    text-decoration: black;
+    text-decoration-line: underline;
+}
+
+.img{
+  text-indent: -9999px;
+}
+
 /* overview calender styling */
 .calendar {
     width: 350px;

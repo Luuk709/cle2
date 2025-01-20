@@ -1,23 +1,78 @@
 <?php
 session_start();
-if(!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id'])) {
     header('location: ./login.php');
+    exit();
 }
-
 
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
+
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
-$resultAccInfo = mysqli_query($db, $getAccInfo)
-or die('Error ');
-//$accInfo = [];
-//
-//// Alle resultaten ophalen
-//while($row = mysqli_fetch_assoc($resultAccInfo))
-//{
-//    $accInfo[] = $row;
-//}
+$resultAccInfo = mysqli_query($db, $getAccInfo) or die('Error');
+
+$comment = $_POST['note'] ?? '';
+
+$errors = [];
+
+if (isset($_POST['submit'])) {
+    $image = $_FILES['image'];
+
+    // Controleer of er een uploadfout is
+    if ($image['error'] !== UPLOAD_ERR_OK) {
+        $errors['image'] = "Image upload failed. Error code: " . $image['error'];
+    } else {
+        // Controleer het bestandstype
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+        if (!in_array($image['type'], $allowedTypes)) {
+            $errors['image'] = "Only JPG, PNG, and GIF files are allowed.";
+        }
+    }
+
+    if (empty($errors)) {
+        // Stel de uploadmap en bestandsnaam in
+        $uploadDir = 'uploads/';
+        $fileName = time() . '_' . basename($image['name']);
+        $filePath = $uploadDir . $fileName;
+
+        // Verplaats het geüploade bestand naar de map
+        if (move_uploaded_file($image['tmp_name'], $filePath)) {
+            // Update de afbeelding in de database
+            $query = "UPDATE users SET image = '$fileName' WHERE id = '" . $_SESSION['id'] . "'";
+            $result = mysqli_query($db, $query);
+
+            if ($result) {
+                header('Location: account.php');
+                exit();
+            } else {
+                $errors['db'] = "Error updating the user: " . mysqli_error($db);
+            }
+        } else {
+            $errors['image'] = "Failed to save the uploaded image.";
+        }
+    }
+}
+// comments
+
+$query = "UPDATE users SET note = '$comment' WHERE id = '" . $_SESSION['id'] . "'";
+$result = mysqli_query($db, $query);
+
+// Ophalen van de gebruikersinformatie
+$userId = $_SESSION['id'];
+$query = "SELECT image FROM users WHERE id = '$userId'";
+
+$result = mysqli_query($db, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+    $imagePath = $row['image'] ? 'uploads/' . $row['image'] : ''; // Als er geen afbeelding is, stel dit in als leeg
+} else {
+    $imagePath = ''; // Geen afbeelding in de database
+}
+mysqli_close($db);
 ?>
+
+
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
@@ -51,9 +106,6 @@ or die('Error ');
 
 
 ?>
-            <a class="navbar-item" href="logout.php">
-                Logout
-            </a>
 
         </div>
         <div class="navbar-end" >
@@ -65,13 +117,42 @@ or die('Error ');
 </nav>
 <?php if ($resultAccInfo) :?>
     <h1 class="is-size-2">Account information</h1>
-    <p>Name:<?= $_SESSION['username'] ?></p>
-    <!--<p>Email: --><?php //= $AccInfo[0]['email'] ?><!--</p>-->
-<div id="aa" style="display: none">
-        <p>Are you sure you want to delete this?</p>
-    <button class="button" onclick="" id="deleteButton">Confirm</button>
-    <button onclick="show()" class="button">Cancel</button>
+<div class="account_info section is-flex">
+<div class="profile_picture">
+    <?php
+// Controleer of er een afbeelding is
+    if (empty($imagePath)): ?>
+        <form action='' method='post' enctype='multipart/form-data'>
+            <label for='image'>Upload Profile Picture:</label>
+            <input type='file' name='image' id='image' accept='image/*'>
+            <button type='submit' name='submit'>Upload</button>
+        </form>
+    <?php endif; ?>
+
+    <?php if (!empty($imagePath)): ?>
+        <img src='<?php echo htmlspecialchars($imagePath); ?>' alt='Profile Picture' style='width:150px; height:150px; object-fit:cover; border-radius:50%;'>
+    <?php endif; ?>
     </div>
+<div class="information">
+    <p>Name:<?= $_SESSION['username'] ?></p>
+    <p>Email: <?= $_SESSION['email'] ?></p>
+    </div>
+<div class="notes">
+    <form action="" method="post">
+    <label class="label" for="note">Comment</label>
+    <input class="input" id="note" type="text" name="note" value="<?= $comment ?>"/>
+    <p class="help is-danger">
+        <span> <?= $errors['note'] ?? '' ?> </span>
+    </p>
+    <button type='submit' name='done'>save comment</button>
+    </form>
+</div>
+<div class="user_links">
+    <a class="button is-danger" href="logout.php">
+        Logout
+    </a>
+    </div>
+</div>
     <h1 class="is-size-2">Reservation information</h1>
     <table class="table is-striped is-fullwidth is-bordered">
         <thead>

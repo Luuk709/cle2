@@ -1,8 +1,14 @@
 <?php
 session_start();
 
+
 /** @var mysqli $db */
 require_once 'includes/dbconnect.php';
+$query = "SELECT * FROM users ";
+
+$result = mysqli_query($db, $query)
+or die('Error ' . mysqli_error($db) . ' with query ' . $query);
+
 ?>
 
 <html lang="en" data-theme="white">
@@ -25,11 +31,10 @@ require_once 'includes/dbconnect.php';
             </div>
             <div class="navbar-end" >
                 <?php
-                if (!isset($_SESSION['id'])) {
+
+                if (!isset($_SESSION['id']) && !isset($_SESSION['admin'])) {
                   echo '<a class="column" href="./login.php" >Login</a>';
-                    echo '<a class="column is-two-fifths" href="createAccount.php">
-                        Sign up
-                    </a>'  ;
+
                 }
 
                 ?>
@@ -37,10 +42,22 @@ require_once 'includes/dbconnect.php';
                     About
                 </a>
                 <?php
-                if (isset($_SESSION['id'])) {
-                    echo '<a class="column is-three-quarters" href="./account.php">My Account</a>';
+                if ( isset($_SESSION['id'])){
+                    echo '<a class="column is-two-thirds" href="./account.php">My Account</a>';
                 }
+
+
+//                elseif  ( isset ($_SESSION['admin']) && isset($_SESSION['id'])) {
+//                    echo '<a class="column" href="overview.php">
+//                Overview
+//            </a>';
+//                    echo '  <a class="column" href="overviewClient.php">
+//                Clients
+//            </a>';
+//                    echo '<a class="column is-one-third" href="./account.php">My Account</a>';
+//                }
                 ?>
+
 
             </div>
         </div>
