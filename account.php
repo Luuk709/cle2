@@ -11,6 +11,8 @@ require_once 'includes/dbconnect.php';
 $getAccInfo = "SELECT * FROM `users` INNER JOIN `reservations` ON reservations.user_id = users.id WHERE users.id = ' " . $_SESSION['id'] . " '";
 $resultAccInfo = mysqli_query($db, $getAccInfo) or die('Error');
 
+$comment = $_POST['note'] ?? '';
+
 $errors = [];
 
 if (isset($_POST['submit'])) {
@@ -50,10 +52,15 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+// comments
+
+$query = "UPDATE users SET note = '$comment' WHERE id = '" . $_SESSION['id'] . "'";
+$result = mysqli_query($db, $query);
 
 // Ophalen van de gebruikersinformatie
 $userId = $_SESSION['id'];
 $query = "SELECT image FROM users WHERE id = '$userId'";
+
 $result = mysqli_query($db, $query);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -62,6 +69,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 } else {
     $imagePath = ''; // Geen afbeelding in de database
 }
+mysqli_close($db);
 ?>
 
 
@@ -109,6 +117,8 @@ if ($result && mysqli_num_rows($result) > 0) {
 </nav>
 <?php if ($resultAccInfo) :?>
     <h1 class="is-size-2">Account information</h1>
+<div class="account_info section is-flex">
+<div class="profile_picture">
     <?php
 // Controleer of er een afbeelding is
     if (empty($imagePath)): ?>
@@ -122,13 +132,27 @@ if ($result && mysqli_num_rows($result) > 0) {
     <?php if (!empty($imagePath)): ?>
         <img src='<?php echo htmlspecialchars($imagePath); ?>' alt='Profile Picture' style='width:150px; height:150px; object-fit:cover; border-radius:50%;'>
     <?php endif; ?>
-
+    </div>
+<div class="information">
     <p>Name:<?= $_SESSION['username'] ?></p>
-    <!--<p>Email: --><?php //= $AccInfo[0]['email'] ?><!--</p>-->
+    <p>Email: <?= $_SESSION['email'] ?></p>
+    </div>
+<div class="notes">
+    <form action="" method="post">
+    <label class="label" for="note">Comment</label>
+    <input class="input" id="note" type="text" name="note" value="<?= $comment ?>"/>
+    <p class="help is-danger">
+        <span> <?= $errors['note'] ?? '' ?> </span>
+    </p>
+    <button type='submit' name='done'>save comment</button>
+    </form>
+</div>
+<div class="user_links">
     <a class="button is-danger" href="logout.php">
         Logout
     </a>
-
+    </div>
+</div>
     <h1 class="is-size-2">Reservation information</h1>
     <table class="table is-striped is-fullwidth is-bordered">
         <thead>
